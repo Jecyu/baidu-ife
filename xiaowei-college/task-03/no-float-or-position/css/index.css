@@ -1,0 +1,103 @@
+/*css-reset*/
+
+/*此处让所有盒子模型都转为传统的IE盒子模型*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    /*font-size: 62.5%;这里设置的原因是为了以单位em设置容器的宽度更方便。针对弹性布局*/
+    font-size: 14px;
+}
+
+
+
+/*如果不去除内外边距，因为父容器宽度固定，这样就无法实现文字与图片在同一行了*/
+figure {
+    margin: 0px;
+    padding: 0px;
+}
+
+.main-wrapper {
+    /*因为设置了body元素的padding值为20px，此处就不用设置宽度和居中的添加了。*/
+    background-color: #eeeeee;
+    min-width: 600px;
+    margin: 20px;
+    padding: 20px;
+    /*为了去除inline-block支架你的间隔，需要设置对父容器和子容器字体进行处理*/
+    font-size: 0px;
+    /*letter-spacing: -4px;*/
+    /*word-spacing: -4px;*/
+}
+
+.main-wrapper > div {
+    display: inline-block;  /*使三个div水平排列*/
+    vertical-align: top; /*顶部对齐*/
+    /*为了去除inline-block支架你的间隔，需要设置对父容器和子容器字体进行处理*/
+    font-size: 16px;
+    letter-spacing: normal;
+    word-spacing: normal;
+
+}
+.smaller-image {
+    width: 80px;
+    height: 80px;
+}
+
+/*左边栏*/
+.wrapper-team-logo-left {
+    padding: 20px;
+    width: 200px;
+    background-color: #FFFFFF;
+}
+
+.wrapper-team-logo-left figcaption {
+    float: right;
+}
+
+.wrapper-team-logo-left fieldset > img {
+    float: left;
+    /*border: 1px solid #999999;*/
+}
+
+.wrapper-team-detail-middle {
+    /*margin-left: 220px;*/
+    /*margin-right: 140px;*/
+
+    width: -webkit-calc(100% - 200px - 120px - 40px);
+    width: -moz-calc(100% - 200px - 120px - 40px);
+    width: calc(100% - 200px - 120px - 40px);
+    margin: 0 20px;
+    padding: 20px;
+    background-color: #FFFFFF;
+}
+
+div.wrapper-personal-logo-right {
+    display: inline-block;
+    width: 120px;
+    background-color: #FFFFFF;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.wrapper-personal-logo-right figure img {
+    display: block; /*因为使用margin: 0 auto;针对块元素，所以此处需要设置img为块元素*/
+    /*!*margin: 10px auto;*! 因为已经设置了图片和容器的宽度、内边距，已经实现了居中效果，此处就注释了*/
+    margin-top: 20px;
+    /*利用外边距的塌陷效果*/
+    margin-bottom: 20px;
+}
+/*!*清理*!*/
+/*.clearfix:after {*/
+    /*content: ".";*/
+    /*height:0;*/
+    /*display: block; !*clear属性只对块元素有作用*!*/
+    /*visibility: hidden;*/
+    /*clear: both;*/
+/*}*/
+
+
+

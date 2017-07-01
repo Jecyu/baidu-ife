@@ -1,0 +1,89 @@
+/*css-reset*/
+body {
+    margin: 0px;
+    /*font-size: 62.5%;这里设置的原因是为了以单位em设置容器的宽度更方便。针对弹性布局*/
+    font-size: 14px;
+    padding: 20px;
+}
+
+/*如果不去除内外边距，因为父容器宽度固定，这样就无法实现文字与图片在同一行了*/
+figure {
+    margin: 0px;
+    padding: 0px;
+}
+
+/*iE浏览器不支持<main>元素*/
+/*main {*/
+/*font-size: 1.4em;*/
+/*background-color: #eeeeee;*/
+/*margin: 1em;*/
+
+/*}*/
+
+
+/*使用相对定位，且高度为子元素最高度，上边距为1em,*/
+.main-wrapper {
+    /*font-size: 1.4em;  !*这里有个bug，就算你前面是body是62.6%即10px，因为这里又被重新设置为14px，因为继承的原因，后面min-wrapper的其他容器就，就算设置了1em，也是为14 px，并不*/
+    /*是10xp的大小！！！！！*!*/
+    /*width: 96%; !* This is normally used with a block of fixed width, because if the block itself is flexible, it will simply take up all the available width *!*/
+    /*因为设置了body元素的padding值为20px，此处就不用设置宽度和居中的添加了。*/
+    /*margin: 0 auto; !* 左右居中，上下外边距为1em *!*/
+    /*position: relative;*/
+    background-color: #eeeeee;
+    border: 1px solid #999;
+    padding: 20px;
+}
+
+.smaller-image {
+    width: 80px;
+    height: 80px;
+}
+
+/*左边栏*/
+.wrapper-team-logo-left {
+    padding: 20px;
+    /*position: relative;*/
+    /*默认位置为父元素左上角，如果父元素有内边距，则实现内边距效果*/
+    width: 160px;
+    background-color: #FFFFFF;
+}
+
+.wrapper-team-logo-left figcaption {
+    float: right;
+}
+
+.wrapper-team-logo-left fieldset > img {
+    float: left;
+    /*border: 1px solid #999999;*/
+}
+
+.wrapper-team-detail-middle {
+    display: inline-block;
+    /*position: absolute;*/
+    /*top: 1em;*/
+    /*margin: 0px 160px 0px 220px; !* 这里外边距不仅仅是120px,与200px要考虑内边距、外边距对盒子的宽度影响,打开chrome开发者测量*!*/
+    padding: 20px;
+    background-color: #FFFFFF;
+    /*border: 1px solid #999;*/
+}
+
+.wrapper-personal-logo-right {
+    /*position: absolute;*/
+    position: relative;
+    /*right: 20px;*/
+    /*top: 1em;*/
+    width: 80px;
+    background-color: #FFFFFF;
+    /*border: 1px solid #999;*/
+    padding: 20px;
+}
+
+.wrapper-personal-logo-right figure img {
+    display: block; /*因为使用margin: 0 auto;针对块元素，所以此处需要设置img为块元素*/
+    /*!*margin: 10px auto;*! 因为已经设置了图片和容器的宽度、内边距，已经实现了居中效果，此处就注释了*/
+    /*border: 1px solid #999999;*/
+    margin-bottom: 14px;
+}
+
+
+

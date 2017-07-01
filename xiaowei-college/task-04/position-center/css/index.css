@@ -1,0 +1,38 @@
+.main {
+    margin: 0;
+    padding: 0;
+    /*height: 200px;*/
+    width: 400px;
+    background-color: #cccccc;
+    /*孩子水平和垂直居中宽高都知道，父亲宽高不知道*/
+    /*绝对定位的默认容器是浏览器窗口*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/*画圆*/
+.round {
+    width: 50px;
+    height: 50px;
+    background-color: #fc0;
+}
+
+.round-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    -moz-border-radius: 0 0 50px 0; /* Mozilla浏览器的私有属性 */
+    -webkit-border-radius: 0 0 50px 0; /* Webkit浏览器的私有属性 */
+    border-radius: 0 0 50px 0; /* 四个半径值分别是左上角、右上角、右下角和左下角 */
+}
+
+.round-2 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    -moz-border-radius: 50px 0 0 0; /* Mozilla浏览器的私有属性 */
+    -webkit-border-radius: 50px 0 0 0; /* Webkit浏览器的私有属性 */
+    border-radius: 50px 0 0 0; /* 四个半径值分别是左上角、右上角、右下角和左下角 */
+}

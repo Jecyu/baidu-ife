@@ -1,0 +1,63 @@
+/*此处需要设置html: 100% 和 body: min-height: 100%才能让页面主体的高度等于浏览器的高度，单单设置一项则不起作用*/
+/*用绝对定位可以直接相对于浏览器窗口垂直居中，而用flex布局需要让页面主体撑满整个浏览器窗口才可以垂直居中*/
+/*firefox、chrome均正常居中，IE11浏览器无法垂直居中*/
+/*In IE 10-11, min-height declarations on flex containers work to size the containers themselves, */
+             /*but their flex item children do not seem to know the size of their parents. */
+             /*They act as if no height has been set at all.*/
+html {
+    height: 100%;
+    /*Inherit只有父元素明确指定时候，才会起作用*/
+    /*height: inherit;*/
+}
+body {
+    margin: 0;
+    padding: 0;
+    /*!*height: 100%;*!  for IE10-IE11*/
+    min-height: 100%; /*设置最小高度是为了可以动态改变body的内容高度且内容时，而不受浏览器的高度影响被裁掉*/
+    /*利用display: table与display: table-cell只能对内联元素实现居中，一般用于多行文字的居中。*/
+    /*display: table;*/
+    /*vertical-align: middle;*/
+}
+
+.main {
+    margin: 0;
+    padding: 0;
+    /*height: 200px;*/
+    width: 400px;
+    background-color: #cccccc;
+    /*孩子水平和垂直居中宽高都知道，父亲宽高不知道*/
+    /*绝对定位的默认容器是浏览器窗口*/
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
+    position: relative;
+    /*display: table-cell;*/
+    /*也能实现水平居中，但是垂直居中出现了滚动条*/
+    margin: 50% auto;
+}
+
+/*画圆*/
+.round {
+    width: 50px;
+    height: 50px;
+    background-color: #fc0;
+}
+
+.round-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    -moz-border-radius: 0 0 50px 0; /* Mozilla浏览器的私有属性 */
+    -webkit-border-radius: 0 0 50px 0; /* Webkit浏览器的私有属性 */
+    border-radius: 0 0 50px 0; /* 四个半径值分别是左上角、右上角、右下角和左下角 */
+}
+
+.round-2 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    -moz-border-radius: 50px 0 0 0; /* Mozilla浏览器的私有属性 */
+    -webkit-border-radius: 50px 0 0 0; /* Webkit浏览器的私有属性 */
+    border-radius: 50px 0 0 0; /* 四个半径值分别是左上角、右上角、右下角和左下角 */
+}

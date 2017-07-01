@@ -1,0 +1,91 @@
+/*css-reset*/
+
+/*此处让所有盒子模型都转为传统的IE盒子模型*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    margin: 0px;
+    /*font-size: 62.5%;这里设置的原因是为了以单位em设置容器的宽度更方便。针对弹性布局*/
+    font-size: 14px;
+    padding: 20px;
+    min-width: 600px;
+}
+
+
+
+/*如果不去除内外边距，因为父容器宽度固定，这样就无法实现文字与图片在同一行了*/
+figure {
+    margin: 0px;
+    padding: 0px;
+}
+
+.main-wrapper {
+    /*因为设置了body元素的padding值为20px，此处就不用设置宽度和居中的添加了。*/
+    /*margin: 0 auto; !* 左右居中，上下外边距为1em *!*/
+    background-color: #eeeeee;
+    /*border: 1px solid #999;*/
+    padding: 20px;
+}
+
+.smaller-image {
+    width: 80px;
+    height: 80px;
+}
+
+/*左边栏*/
+.wrapper-team-logo-left {
+    float: left;
+    padding: 20px;
+    width: 200px;
+    background-color: #FFFFFF;
+}
+
+.wrapper-team-logo-left figcaption {
+    float: right;
+}
+
+.wrapper-team-logo-left fieldset > img {
+    float: left;
+    /*border: 1px solid #999999;*/
+}
+
+.wrapper-team-detail-middle {
+    margin-left: 220px;
+    margin-right: 140px;
+    padding: 20px;
+    background-color: #FFFFFF;
+    /*border: 1px solid #999;*/
+
+}
+
+div.wrapper-personal-logo-right {
+     float: right;
+     width: 120px;
+     background-color: #FFFFFF;
+     padding-left: 20px;
+     padding-right: 20px;
+ }
+
+.wrapper-personal-logo-right figure img {
+    display: block; /*因为使用margin: 0 auto;针对块元素，所以此处需要设置img为块元素*/
+    /*!*margin: 10px auto;*! 因为已经设置了图片和容器的宽度、内边距，已经实现了居中效果，此处就注释了*/
+    margin-top: 20px;
+    /*利用外边距的塌陷效果*/
+    margin-bottom: 20px;
+}
+/*清理*/
+.clearfix:after {
+    content: ".";
+    height:0;
+    display: block; /*clear属性只对块元素有作用*/
+    visibility: hidden;
+    clear: both;
+}
+
+
+

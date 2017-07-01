@@ -1,0 +1,201 @@
+<!DOCTYPE html>  
+<!-- 打 ！   再  tab 会产生基本的HTML页面————emmet插件
+command+ / 会产生注释          ————插件的功劳 -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">   <!-- charset属性 定义了文档的字符编码，值和文档的内容是要一致的 -->
+	<meta name="keywords" content="HTML">   
+	<meta name="description" content="百度前端技术学院任务一：零基础HTML编码">  <!-- 主要描述了文档的基本信息 content中的内容主要是给 搜索引擎 用的 -->
+	<meta name="viewport" content="width=device-width">  <!-- 这一种name为viewport的meta 对移动端浏览器才有效，设置宽高、缩放等等 -->
+	<link rel="shortcut icon" href="favicon.ico"> 
+	<!-- 引入shortcut icon 在href中引入图片地址，一般不要写，浏览器默认 根目录下的图标进行展示，如果不一样就用显示的引入 -->
+	<!-- <link rel="stylesheet" type="text/css" href="../css/style.css"> --><!-- stylesheet引入样式 -->
+	<!-- <base href="https://crazylin7.github.io/blog" target="_blank"> -->
+	<!--  -->
+	<!-- base标签是HTML语言中的基准网址标记，它是一个单标签，位于网页头部文件的head标签内，一个页面最多只能使用一个base元素，用来提供一个指定的默认目标，也算是一种表达路径和连接网址的标记 -->
+	<!-- 由base制定了一个URL地址，接下来你所要调用的文件或图片等就无须再填写完整的地址，只需写上该文件名或图片名即可。 -->
+	<!-- <a href="index"> -->
+	<!-- 完整地址https://crazylin7.github.io/blog/index -->
+	<!-- target属性是网页窗口的打开方式，在base标签中设置该属性，那么页面中所有的链接都将遵循这个方式来打开网页，分别有如下几种选择：
+	1、 _blank：在新窗口打开链接页面。
+	2、 _parent:在上一级窗口中打开链接。
+	3、 _self： 在当前窗口打开链接,此为默认值，可以省略。
+	4、 _top： 在浏览器的整个窗口打开链接，忽略任何框架。 -->
+	<title>任务一：零基础HTML编码</title> 
+</head>
+<body>
+	<header>
+		<h1>网站一级标题</h1>
+	</header>
+	<nav>
+		<ul>
+			<li><a href="#">导航链接一</a></li>
+			<li><a href="#">导航链接二</a></li>
+			<li><a href="#">导航链接三</a></li>
+			<li><a href="#">导航链接四</a></li>
+		</ul>
+	</nav>
+	<main>
+		<article>
+			<h2>文章一级标题</h2>
+			<h2>文章二级标题</h2>
+			<span>文章作者&nbsp;文章发表时间</span>
+			<p>
+				这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，<br>换行了<br>	这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，换行了
+				<br>这是一个很长很长的段落，这是一个很长很长的段落，<a href="http://ife.baidu.com">这里有一个链接链接到http://ife.baidu.com</a>这是一个很长很长的段落，这是一个很长很长的段落，<strong>这里有个粗体字</strong>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落。
+			</p>
+			<figure>
+				<img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+			</figure>
+		</article>
+		<article>
+			<h2>另一篇文章一级标题</h2>
+			<h2>文章二级标题</h2>
+			<p>
+				这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，<br>换行了<br>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，换行了<br>这是一个很长很长的段落，这是一个很长很长的段落，<a href="http://ife.baidu.com">这里有一个链接链接到http://ife.baidu.com</a>这是一个很长很长的段落，这是一个很长很长的段落，<strong>这里有个粗体</strong>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落。
+			</p>
+			<!-- <figure> -->
+				<img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+			<!-- </figure> -->
+			<ul>
+				<li>列表项目一</li>
+				<li>列表项目二</li>
+				<li>列表项目三</li>
+			</ul>
+			<h2>图片</h2>
+			<figure> <!-- 你可以在一个figure中放置多张图片，如果这些图片在你的文档中存在上下文关系。 -->
+				<figcaption>性感情绪人像</figcaption>
+				<img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+				<figcaption>性感情绪人像</figcaption>
+				<img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+				<figcaption>性感情绪人像</figcaption>
+				<img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+				<figcaption>性感情绪人像</figcaption>
+				<img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+				<figcaption>性感情绪人像</figcaption>
+				<img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+				<figcaption>性感情绪人像</figcaption>
+				<img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+				<figcaption>性感情绪人像</figcaption>
+				<img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+				<figcaption>性感情绪人像</figcaption>
+				<img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+				<figcaption>性感情绪人像</figcaption>
+				<img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+				<figcaption>性感情绪人像</figcaption>
+				<img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+			</figure>
+		</article>
+		<article>
+			<h2>最后一篇文章一级标题</h2>
+			<h2>文章二级标题</h2>
+			<span>文章作者&nbsp;文章发表时间</span>
+			<ol>
+				<li>排名1</li>
+				<li>排名2</li>
+				<li>排名3</li>
+			</ol>
+			
+			<table border="1">
+				<caption>下面是一个表格，给表格添加了一个border="1"好让你看出是一个表格</caption>
+				<thead>
+					<tr>
+						<th>表头</th>
+						<th>表头</th>
+						<th>表头</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>表内容单元格</td>
+						<td>表内容单元格</td>
+						<td><a href="#">操作</a></td>
+					</tr>
+					<tr>
+						<td>表内容单元格</td>
+						<td>表内容单元格</td>
+						<td><a href="#">操作</a></td>
+					</tr>
+					<tr>
+						<td>表内容单元格</td>
+						<td>表内容单元格</td>
+						<td><a href="#">操作</a></td>
+					</tr>
+					<tr>
+						<td>表内容单元格</td>
+						<td>表内容单元格</td>
+						<td><a href="#">操作</a></td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td>总计</td>
+						<td colspan="2">1000</td>
+					</tr>
+				</tfoot>
+			</table>
+		</article>
+	</main>
+	<aside>
+		<h2>这里以后是一个侧栏，这是侧栏的标题</h2>
+		<h2>侧栏注册窗口标题</h2>
+		<form action="">
+			<!-- <fieldset> -->
+			<label for="address" >请输入邮箱地址：</label>
+			<input type="text" id="address" placeholder="这是一个文本输入框">
+			<p>邮箱地址请按要求格式输入</p>
+			<label for="password">请输入密码：</label>
+			<input type="password" id="password" placeholder="这是一个文本输入框">
+			<label for="confirm-password">请重新输入密码：</label>
+			<input type="password" id="confirm-password" placeholder="这是一个文本输入框">
+			<p>密码请问6-16位英文数字</p>
+			<!-- </fieldset> -->
+			<label for="sex">性别：</label>
+			<label for="radio"><input type="radio" checked="checked" name="sex">男</label>
+			<label for="radio"><input type="radio" name="sex">女</label>
+			<label for="city">城市：
+				<select name="select" id="city">
+					<optgroup label="热门城市">
+						<option value="1">北京</option>
+						<option value="2">上海</option>
+						<option value="3" selected="">广州</option>
+						<option value="4">深圳</option>
+					</optgroup>
+					<optgroup label="最近访问的城市">
+						<option value="1">中山</option>
+						<option value="2">湛江</option>
+						<option value="3">佛山</option>
+						<option value="4">南京</option>
+					</optgroup>
+				</select>
+			</label>
+			<label for="favorite">爱好：</label>
+			<!-- ID 是 以 #定义的CSS样式也可以用JS获取来控制 getElementById(这里是ID) 来获取
+			name 很多了，就是给当前标签或元素指定名称，也可以用JS来控制值，form提交后获取的时候就需要获取name名称。
+			id 一般用于css和js中引用,name用于表单提交,只有加了name属性的标签元素才会提交到服务器 -->
+			<!-- name：控件名称 value：用户输入(或选择)的值 id用于网页脚本编号(javascript) -->
+			<input type="checkbox" name="favorite" value="运动">运动
+			<input type="checkbox" name="favorite" value="艺术">艺术
+			<input type="checkbox" name="favorite" value="科学">科学
+			<label for="description">个人描述：</label>
+			<!-- wrap=”virtual”：可以实现文本区内的自动换行，以改善对用户的显示。但提交到服务器的内容中，文本只有在用户按回车键的地方才换行。
+			wrap=”physical”：可以实现文本区内的自动换行，并且按原样提交到服务器。当需要用户能够对提交的内容做到“所见即所得”时，这个设置非常有用。 -->
+			<textarea name="description" cols="30" rows="2" wrap="physical"> 
+				这是一个多行输入框，输入您的个人描述
+			</textarea>
+			<button class="submit" type="submit" >确认提交</button>
+		</form>
+	</aside>
+	<footer>
+		<span>>版权所有&copy;</span>
+	</footer>
+	<!-- HTML label和 属性名 都建议用小写 -->
+	<!-- 以下标签语义化的表示章节结构，在HTML5之前都是用div标签进行分隔
+	header 页面头部／标题／logo／搜索表单 等等
+	nav 任何有导航性质的标签都可以用到，比如页面中的导航，可以有多个
+	aside 和主要内容不相关的内容，工具内容／广告什么的
+	article 表示独立的可重复的结构：论坛的帖子／博客的评论
+	section 表示文档中的一个区域：一般会带一个标题　相临的section之间是有相关性的，article则不相关，是独立的
+	footer 章节的尾部：版权信息／相关文档／一些独立内容的尾部也可以用到 -->
+</body>
+</html>
