@@ -1,0 +1,341 @@
+/*reset*/
+/* css初始化 */
+html {
+    font-size: 62.5%; /*一般的浏览器字号为16px * 62.5% = 10px;*/
+}
+
+body {
+    background-color: #DEDEDE;
+    font-size: 1.4em;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    min-width: 840px;
+}
+
+html, body, ul, li, img, figure, figcaption, th, td, p,main {
+    margin: 0;
+    padding: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.clearfix:before {
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+}
+
+/*页面的顶部*/
+
+.navbar {
+    position: relative;
+    width: 100%;
+    height: 75px;
+    background-color: #333;
+    /* Dark gray */
+}
+
+/*logo*/
+.navbar-Brand {
+    position: absolute;
+    left: 3%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/*网站导航 */
+
+.navbar nav {
+    position: absolute;
+    /*float: right;*/
+    /*margin: 1em 1em 1em 0px;*/
+    right: 3%;
+    top: 50%;
+    transform: translateY(-50%);
+    /*去除行内元素默认间距*/
+    font-size: 0;
+    word-spacing: -4px;
+    letter-spacing: -4px;
+}
+
+.navbar nav ul li {
+    /*position: relative;*/
+    word-spacing: normal;
+    letter-spacing: normal;
+    font-size: 14px;
+    display: inline-block;
+    margin-left: 2em;
+}
+
+/*Bullet points or list style icons works only for display: list-item css property applied elements.符号不见了*/
+.navbar nav ul li:before {
+    content: "";
+    display: list-item;
+    /*绝对定位使文字与符号对齐，利用绝对定位无依赖跟随性*/
+    position: absolute;
+}
+
+/* 鼠标悬停的时候，改变字体颜色 */
+
+.navbar nav ul li a:link,
+.navbar nav ul li a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar nav ul li a:hover,
+.navbar nav ul li a:active,
+.navbar nav ul li a:focus {
+    color: #a9a69d;
+    /* gray */
+}
+
+main {
+    display: block;
+    padding: 20px 20px;
+    line-height: 26px; /* 控制行与行之间的垂直距离 */
+    margin-right: 462px;
+
+}
+
+/*侧边栏*/
+
+.right {
+    float: right;
+    width: 400px;
+    margin: 20px;
+}
+
+/* 1.实现每个板块的背景颜色
+2.页面的内边距
+3.板块边缘的阴影效果 */
+.article-01,
+.article-02,
+.article-03,
+aside,
+.gallery {
+    background-color: white;
+    /*margin-top: 1em;*/
+    box-shadow: 2px 2px 1px #898989;
+    /* gray */
+    border-radius: 2px;
+    border: 1px solid #D1D1D1;
+    padding: 20px 20px;
+    margin-bottom: 20px;
+}
+
+.article-first-title {
+    color: #030001;
+    /* black */
+}
+
+.article-second-title {
+    font-size: 16px;
+    color: #707070;
+    /* gray */
+}
+
+.author {
+    font-size: 12px;
+    color: #707070;
+    /* gray */
+}
+
+.article-02 > ul {
+    margin-left: 20px;
+    list-style: none;
+}
+
+/*图片*/
+.gallery figure {
+    display: inline-block;
+    /*宽度自包含内容*/
+    /*width: 120px;*/
+    /*height: 140px;*/
+    border: 1px solid #cbcbcb;
+    /*padding: 10px;*/
+    margin: 10px;
+    /* gray */
+    text-align: center;
+    /*去除默认间距*/
+    font-size: 0;
+    word-spacing: -4px;
+    letter-spacing: -4px;
+    /*这个属性可以应用任何文本类内容包括dd、figure、li、ul div p 等  */
+}
+
+.gallery figure img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 0 10px 10px 10px;
+}
+
+.gallery figure figcaption {
+    line-height: 14px;
+    font-size: 14px;
+    letter-spacing: normal;
+    word-spacing: normal;
+    margin: 10px;
+}
+
+/* 表格 */
+
+/* 1.加粗标题,设置字体大小
+   2.内容靠左，共享边框，去除边框边距
+   3.表格的内边距*/
+
+.score caption {
+    font-size: 1em; /* 实际大小不能应用于视力受损用户的设备上，因为这些设备不支持指定实际的值 */
+    font-weight: bold;
+    text-align: left;
+}
+
+table.score {
+    border-collapse: collapse; /* 共享边框  */
+    /*border-spacing: 0;*/
+    text-align: left;
+    width: 100%; /* 相对与父容器的大小，这样就可以随着窗口的缩放而缩放 */
+    /*因为父元素设置了内边距，所以此处表格的宽度为父元素的宽度减去内边距与边框的值*/
+}
+
+/* 1.设置单元格的内边距 */
+/* 2.给表头行加上背景颜色、文字颜色*/
+/* 3.设置表头边框、单元格大小、颜色 */
+/* 4.设置单元格的左、右内边距 */
+
+.score thead {
+    color: white;
+    background-color: #333333;
+    /* dark gray */
+}
+
+.score th,
+.score td {
+    border: 1px solid #a2a2a2;
+    padding-left: 1em;
+}
+
+/* 给表脚添加背景颜色*/
+.score tfoot tr {
+    background-color: #cccccc; /* silver */
+    border: 1px solid #a2a2a2;
+}
+
+.score tfoot tr td {
+    border: none;
+}
+
+/* 表单 */
+/* 去掉边框和标题,设置侧栏标题大小，和添置灰色条
+ * 通过设置行高让标题和灰色条水平居中
+ */
+.aside-header {
+    display: block;
+    position: relative;
+    /*使用flexbox（前提该元素的父元素height值确定*/
+    /*display: table-cell（前提该元素的height值确定）*/
+    /*display: table;*/
+    /*vertical-align: middle;*/
+}
+
+.verical-bar {
+    position: absolute;
+    display: inline-block;
+    height: 40px;
+    top: 50%;
+    /*transform: translateY(-50%);*/
+    -moz-transform: translate(0, -50%);
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    border-left: 3px solid #CDCDCD;
+}
+
+aside h2 {
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 10px;
+    /*此处文字已经居中，因为父元素高度直接由它来决定*/
+    /*此时如果设定为绝对定位，父元素高度塌陷了*/
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*-moz-transform: translate(0,-50%);*/
+    /*-webkit-transform: translate(0,-50%);*/
+    /*transform: translate(0,-50%);*/
+}
+
+/*
+*  1.实现表单标签和文本输入框的宽度一致。文本居右对齐，有一定内边距
+*  2.设置表单内边距
+ */
+/*使表格的左边标签都居右，且内边距为10px*/
+.table-form {
+    /*margin-left: 10px;*/
+    height: 100%;
+    width: 100%; /*设置表单表格宽度，使在各浏览器宽度表现一致*/
+}
+
+select {
+    width: 4em;
+}
+.table-form tr td:first-child {
+    text-align: right;
+    padding: 10px;
+}
+
+.help-text {
+    color: #a7a7a7;
+}
+
+label {
+    cursor: pointer; /* 设置光标 */
+}
+
+/*Todo 自定义单选按钮、复选按钮、选择框的样式*/
+/*input[type=radio] {*/
+    /*display: none;;*/
+/*}*/
+
+/*ie10+以上input[type=checkbox] / input[type=radio] selector::-ms-check*/
+::-ms-check,
+::-ms-expand{
+    color: white;
+    background: #4090fd;
+    /*!*padding: 1em;*!改变大小*/
+}
+
+
+/*提交按钮*/
+.submit {
+    /*1.设置尺寸和有颜色的边框。
+    2.用border-radius生成圆角并应用文本阴影。
+    3.通过使用图像或Webkit特有的渐变功能应用渐变的背景*/
+    width: 100%;
+    line-height: 1.5em; /* 使文本居中 */
+    background: #4090fd;
+    border: 1px solid #989898;
+    border-radius: 6px;
+    box-shadow: 2px 2px 2px #ccc;
+    color: #FFFFFF;
+    font-size: 1.5em;
+    text-shadow: 1px 1px 1px #666;
+}
+
+/*.submit:before{*/
+    /*content: "jkj";*/
+/*}*/
+
+/* 页脚版权 */
+
+footer {
+    display: block;
+    text-align: center;
+    color: #FFFFFF;
+    background: #000;
+    width: 100%;
+    height: 65px;
+    line-height: 65px; /* 文本垂直居中 */
+    white-space: nowrap; /*不换行*/
+}

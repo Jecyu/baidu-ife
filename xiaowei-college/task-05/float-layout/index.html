@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<!-- 打 ！   再  tab 会产生基本的HTML页面————emmet插件
+command+ / 会产生注释          ————插件的功劳 -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">   <!-- charset属性 定义了文档的字符编码，值和文档的内容是要一致的 -->
+    <meta name="keywords" content="HTML">
+    <meta name="description" content="百度前端技术学院任务一：零基础HTML编码">  <!-- 主要描述了文档的基本信息 content中的内容主要是给 搜索引擎 用的 -->
+    <meta name="viewport" content="width=device-width">  <!-- 这一种name为viewport的meta 对移动端浏览器才有效，设置宽高、缩放等等 -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/index.css">
+    <title>任务五：零基础HTML编码（二）</title>
+</head>
+<body>
+<div class="navbar">
+    <header class="navbar-header">
+        <!--<h1>网站一级标题</h1>-->
+        <a class="navbar-Brand" href="#"><img src="image/logo.png" alt="baidu logo"></a>
+    </header>
+    <nav class="navbar-nav">
+        <ul>
+            <li><a href="#">导航链接一</a></li>
+            <li><a href="#">导航链接二</a></li>
+            <li><a href="#">导航链接三</a></li>
+            <li><a href="#">导航链接四</a></li>
+        </ul>
+    </nav>
+</div><!--END navbar-->
+<aside class="right">
+    <header class="aside-header">
+        <i class="verical-bar"></i>
+        <h2>这里以后是一个侧栏，这是侧栏的标题</h2>
+    </header>
+    <!--<h2>侧栏注册窗口标题</h2>-->
+    <form action="" class="clearfix">
+        <table class="table-form">
+            <tbody>
+                <tr>
+                    <td><label for="address">请输入邮箱地址</label></td>
+                    <td><input type="text" id="address" placeholder="这是一个文本输入框"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2"><span class="help-text">邮箱地址请按要求格式输入 </span></td>
+                </tr>
+                <tr>
+                    <td><label for="password">请输入密码</label></td>
+                    <td><input type="password" id="password" placeholder="这是一个文本输入框"></td>
+                </tr>
+                <tr>
+                    <td><label for="confirm-password">请重新输入密码</label></td>
+                    <td><input type="password" id="confirm-password" placeholder="这是一个文本输入框"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2"><span class="help-text">密码请问6-16位英文数字</span></td>
+                </tr>
+                <tr>
+                    <td><label for="sex">性别</label></td>
+                    <td>
+                        <label class="sex" for="male"><input id="male" type="radio" checked="checked" name="sex">男</label>
+                        <label class="sex" for="female"><input id="female" type="radio" name="sex">女</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="city">城市</label></td>
+                    <td>
+                        <select name="select" id="city">
+                            <optgroup label="热门城市">
+                                <option value="1">北京</option>
+                                <option value="2">上海</option>
+                                <option value="3" selected="">广州</option>
+                                <option value="4">深圳</option>
+                            </optgroup>
+                            <optgroup label="最近访问的城市">
+                                <option value="1">中山</option>
+                                <option value="2">湛江</option>
+                                <option value="3">佛山</option>
+                                <option value="4">南京</option>
+                            </optgroup>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="favorite">爱好</label></td>
+                    <!-- ID 是 以 #定义的CSS样式也可以用JS获取来控制 getElementById(这里是ID) 来获取
+                     name 很多了，就是给当前标签或元素指定名称，也可以用JS来控制值，form提交后获取的时候就需要获取name名称。
+                     id 一般用于css和js中引用,name用于表单提交,只有加了name属性的标签元素才会提交到服务器 -->
+                    <!-- name：控件名称 value：用户输入(或选择)的值 id用于网页脚本编号(javascript) -->
+                    <td>
+                        <label class="hobbies" for="sport"><input id="sport" type="checkbox" name="favorite"
+                                                                  value="运动">运动</label>
+                        <label class="hobbies" for="art"><input id="art" type="checkbox" name="favorite"
+                                                                value="艺术">艺术</label>
+                        <label class="hobbies" for="science"><input id="science" type="checkbox" name="favorite"
+                                                                    value="科学">科学</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="description">个人描述</label></td>
+                    <!-- wrap=”virtual”：可以实现文本区内的自动换行，以改善对用户的显示。但提交到服务器的内容中，文本只有在用户按回车键的地方才换行。
+                    wrap=”physical”：可以实现文本区内的自动换行，并且按原样提交到服务器。当需要用户能够对提交的内容做到“所见即所得”时，这个设置非常有用。 -->
+                    <td>
+                        <!--<textarea id="description" name="description" cols="30" rows="2" wrap="physical" placeholder="这是一个多行输入框，输入您的个人描述">-->
+                        <!--</textarea>-->
+                        <!--文本域结束标签 换行导致placeholder无法正确表示-->
+                        <textarea id="description" name="description" rows="5" cols="30" wrap="physical"
+                                  placeholder="这是一个多行输入框，输入您的个人描述"></textarea>
+                    </td>
+                </tr>
+            </tbody>
+            <tr>
+                <td colspan="2">
+                    <button class="submit" type="submit">确认提交</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</aside>
+<main class="left">
+    <article class="article-01">
+        <h2 class="article-first-title">文章一级标题</h2>
+        <h2 class="article-second-title">文章二级标题</h2>
+        <span class="author">文章作者&nbsp;文章发表时间</span>
+        <p>
+            这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，<br>换行了<br>
+            这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，换行了
+            <br>这是一个很长很长的段落，这是一个很长很长的段落，<a href="http://ife.baidu.com">这里有一个链接链接到http://ife.baidu.com</a>这是一个很长很长的段落，这是一个很长很长的段落，<strong>这里有个粗体字</strong>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落。
+        </p>
+        <figure>
+            <img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+        </figure>
+    </article>
+    <article class="article-02">
+        <h2 class="article-first-title">另一篇文章一级标题</h2>
+        <h2 class="article-second-title">文章二级标题</h2>
+        <span class="author">文章作者&nbsp;文章发表时间</span>
+        <p>
+            这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，<br>换行了<br>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，换行了<br>这是一个很长很长的段落，这是一个很长很长的段落，<a
+                href="http://ife.baidu.com">这里有一个链接链接到http://ife.baidu.com</a>这是一个很长很长的段落，这是一个很长很长的段落，<strong>这里有个粗体</strong>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落。
+        </p>
+        <!-- <figure> -->
+        <img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+        <!-- </figure> -->
+        <ul>
+            <li>列表项目一</li>
+            <li>列表项目二</li>
+            <li>列表项目三</li>
+        </ul>
+
+    </article>
+    <article class="gallery">
+        <h2>图片</h2>
+        <!-- 你可以在一个figure中放置多张图片，如果这些图片在你的文档中存在上下文关系。 -->
+        <figure>
+            <figcaption>性感情绪人像</figcaption>
+            <img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+        </figure>
+        <figure>
+            <figcaption>性感情绪人像</figcaption>
+            <img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+        </figure>
+        <figure>
+            <figcaption>性感情绪人像</figcaption>
+            <img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+        </figure>
+        <figure>
+            <figcaption>性感情绪人像</figcaption>
+            <img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+        </figure>
+        <figure>
+            <figcaption>性感情绪人像</figcaption>
+            <img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+        </figure>
+        <figure>
+            <figcaption>性感情绪人像</figcaption>
+            <img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+        </figure>
+        <figure>
+            <figcaption>性感情绪人像</figcaption>
+            <img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+        </figure>
+        <figure>
+            <figcaption>性感情绪人像</figcaption>
+            <img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+        </figure>
+        <figure>
+            <figcaption>性感情绪人像</figcaption>
+            <img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+        </figure>
+        <figure>
+            <figcaption>性感情绪人像</figcaption>
+            <img src="image/Sexy%20portrait.png" alt="性感情绪人像">
+        </figure>
+
+    </article><!--END gallery-->
+    <article class="article-03">
+        <h2 class="article-first-title">最后一篇文章一级标题</h2>
+        <h2 class="article-second-title">文章二级标题</h2>
+        <span class="author">文章作者&nbsp;文章发表时间</span>
+        <ol>
+            <li>排名1</li>
+            <li>排名2</li>
+            <li>排名3</li>
+        </ol>
+
+        <table border="1" class="score">
+            <caption>下面是一个表格，给表格添加了一个border="1"好让你看出是一个表格</caption>
+            <thead>
+            <tr>
+                <th>表头</th>
+                <th>表头</th>
+                <th>表头</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>表内容单元格</td>
+                <td>表内容单元格</td>
+                <td><a href="#">操作</a></td>
+            </tr>
+            <tr>
+                <td>表内容单元格</td>
+                <td>表内容单元格</td>
+                <td><a href="#">操作</a></td>
+            </tr>
+            <tr>
+                <td>表内容单元格</td>
+                <td>表内容单元格</td>
+                <td><a href="#">操作</a></td>
+            </tr>
+            <tr>
+                <td>表内容单元格</td>
+                <td>表内容单元格</td>
+                <td><a href="#">操作</a></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td>总计</td>
+                <td colspan="2">1000</td>
+            </tr>
+            </tfoot>
+        </table>
+    </article>
+</main>
+
+<footer>
+    <span>版权所有&copy;</span>
+</footer>
+<!-- HTML label和 属性名 都建议用小写 -->
+<!-- 以下标签语义化的表示章节结构，在HTML5之前都是用div标签进行分隔
+header 页面头部／标题／logo／搜索表单 等等
+nav 任何有导航性质的标签都可以用到，比如页面中的导航，可以有多个
+aside 和主要内容不相关的内容，工具内容／广告什么的
+article 表示独立的可重复的结构：论坛的帖子／博客的评论
+section 表示文档中的一个区域：一般会带一个标题　相临的section之间是有相关性的，article则不相关，是独立的
+footer 章节的尾部：版权信息／相关文档／一些独立内容的尾部也可以用到 -->
+</body>
+</html>
