@@ -180,14 +180,13 @@ command+ / 会产生注释          ————插件的功劳 -->
 			<label for="description">个人描述：</label>
 			<!-- wrap=”virtual”：可以实现文本区内的自动换行，以改善对用户的显示。但提交到服务器的内容中，文本只有在用户按回车键的地方才换行。
 			wrap=”physical”：可以实现文本区内的自动换行，并且按原样提交到服务器。当需要用户能够对提交的内容做到“所见即所得”时，这个设置非常有用。 -->
-			<textarea name="description" cols="30" rows="2" wrap="physical"> 
-				这是一个多行输入框，输入您的个人描述
-			</textarea>
+			<textarea name="description" cols="30" rows="2" wrap="physical" placeholder="这是一个多行输入框，输入您的个人描述"></textarea>
+
 			<button class="submit" type="submit" >确认提交</button>
 		</form>
 	</aside>
 	<footer>
-		<span>>版权所有&copy;</span>
+		<span>版权所有&copy;</span>
 	</footer>
 	<!-- HTML label和 属性名 都建议用小写 -->
 	<!-- 以下标签语义化的表示章节结构，在HTML5之前都是用div标签进行分隔

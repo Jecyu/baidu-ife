@@ -1,4 +1,4 @@
-/*reset*/
+/*Reset*/
 body {
     background-color: #5d5d5d;
 }
@@ -7,9 +7,10 @@ body, div, header, h1, h2, h3, p, img, ul, li,small,blockquote {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+/*END Reset*/
 
-/*END reset*/
 /*容器*/
 .page-inner {
     width: 980px;
@@ -177,7 +178,7 @@ body, div, header, h1, h2, h3, p, img, ul, li,small,blockquote {
     opacity: .7;
 }
 
-.block-percentage span {
+.block-percentage .percentage {
     color: #cd4a48;
 }
 
@@ -192,7 +193,7 @@ body, div, header, h1, h2, h3, p, img, ul, li,small,blockquote {
     border-top: 2px solid #cc8091;
 }
 
-.block-title--word h1 {
+.block-title--word .h1 {
     margin: 10px 0 0 0;
     /*line-height: 40px;*/
     font: 24px "Microsoft YaHei";
@@ -200,13 +201,13 @@ body, div, header, h1, h2, h3, p, img, ul, li,small,blockquote {
     color: #000;
 }
 
-.block-title--word p {
+.block-title--word .text {
     /*margin-top: 10px;*/
     font: 12px "KaiTi";
     color: #676767;
 }
 
-.block-title--number h2 {
+.block-title--number .h2 {
     font: 116px "Microsoft YaHei";
     line-height: 136px;
     color: #75b86b;
@@ -226,7 +227,7 @@ body, div, header, h1, h2, h3, p, img, ul, li,small,blockquote {
     color: #bcbbba;
 }
 
-.block-title--number .word span {
+.block-title--number .word .word--small {
     font: 21px "Microsoft YaHei";
     color: #cc8091;
 }
@@ -373,8 +374,10 @@ body, div, header, h1, h2, h3, p, img, ul, li,small,blockquote {
 
 .list {
     padding: 30px 0 0 30px;
-    /*外边距与父容器外边距合并，无效果*/
-    /*margin-top: 30px;*/
+    /*外边距与父容器外边距合并，无效果，可以增加1px的内边距或边框来修复，但会增加1px的遗憾。所以直接用内边距实现效果*/
+    /*margin-top: 30px;
+     padding:1px
+    */
     list-style: none;
 }
 

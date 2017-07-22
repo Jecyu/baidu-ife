@@ -1,0 +1,356 @@
+/* 任务二零基础CSS编码 */
+
+/* 方法：从上而下一步步布局 */
+
+/* css初始化 */
+html {
+    font-size: 62.5%;    /*一般的浏览器字号为16px * 62.5% = 10px;*/
+}
+
+body {
+    background-color: #DEDEDE;
+    margin: 0;
+    padding: 0;
+    font-size: 1.4em;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.clearfloat:after {
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+}
+
+a,li,ul {
+    margin:0;
+}
+
+/*页面的顶部*/
+
+.site-nav {
+    position: relative;
+    width: 100%;
+    height: 75px;
+    background-color: #333;
+    /* Dark gray */
+}
+
+/* logo */
+
+a.navbar-brand {
+    position: absolute;
+    float: left;
+    /*margin: 1em 0px 0px 3em;*/
+    left: 3%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* 网站导航 */
+
+.site-nav nav {
+    position: absolute;
+    /*float: right;*/
+    /*margin: 1em 1em 1em 0px;*/
+    right: 3%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+.site-nav nav ul li {
+    float: left;
+    padding-right: 2em;
+    white-space: nowrap;
+    /*nowrap表示文字在行中显示，white-space用于描述元素中的空格如何处理 */
+}
+
+/* 鼠标悬停的时候，改变字体颜色 */
+
+.site-nav nav ul li a:link,
+.site-nav nav ul li a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.site-nav nav ul li a:hover,
+.site-nav nav ul li a:active,
+.site-nav nav ul li a:focus {
+    color: #a9a69d;
+    /* gray */
+}
+
+/* 页面的主体 */
+
+main {
+    /*  margin: 1em 1em;*/
+    padding: 1em 1em;
+    line-height: 26px;
+    /* 控制行与行之间的垂直距离 */
+}
+
+/* 1.实现每个板块的背景颜色
+   2.页面的内边距
+   3.板块边缘的阴影效果 */
+.article-01,
+.article-02,
+.article-03,
+.gallery {
+    background-color: white;
+    /*margin-top: 1em;*/
+    box-shadow: 2px 2px 1px #898989;
+    /* gray */
+    border-radius: 2px;
+    border: 1px solid #D1D1D1;
+    padding: 1em 1em;
+    margin-bottom: 1em;
+}
+
+.article-first-title {
+    color: #030001;
+    /* black */
+}
+
+.article-second-title {
+    font-size: 16px;
+    color: #707070;
+    /* gray */
+}
+
+.author {
+    font-size: 12px;
+    color: #707070;
+    /* gray */
+}
+
+.article-02 > ul {
+    list-style: none;
+}
+
+aside {
+    background-color: white;
+    box-shadow: 2px 2px 1px #898989;
+    /* gray */
+    border-radius: 2px;
+    padding: 1em 0px 1em 1em;
+    margin: 1em 2em 1em 1em;
+    /*margin-bottom: 1em;*/
+}
+
+/* gallery */
+
+.gallery figure {
+    width: 124px;
+    height: 128px;
+    border: 1px solid #cbcbcb;
+    /* gray */
+    /*padding: 1em 1em;*/
+    /*margin: atuo 0;*/
+    /*padding 和margin均不能实现居中*/
+    text-align: center;
+    /*这个属性可以应用任何文本类内容包括dd、figure、li、ul div p 等  */
+    padding-bottom: 1em;
+}
+
+.gallery figure img {
+    width: 90px;
+    height: 100px;
+}
+
+.gallery figure figcaption {
+    line-height: 2em;
+}
+
+.article-03 ol li {
+    font-weight: bold;
+}
+
+/* 表格 */
+
+/* 1.加粗标题,设置字体大小
+   2.内容靠左，共享边框，去除边框边距 
+   3.表格的内边距*/
+
+.score caption {
+    font-size: 1em; /* 实际大小不能应用于视力受损用户的设备上，因为这些设备不支持指定实际的值 */
+    font-weight: bold;
+    text-align: left;
+}
+
+table.score {
+    border-collapse: collapse;
+    /* 共享边框  */
+    /*border-spacing: 0;*/
+    text-align: left;
+    width: 99.9%; /* 相对与父容器的大小，这样就可以随着窗口的缩放而缩放 */
+    margin: 0 auto;
+    /*width: 100em;*/
+}
+
+/* 删除默认外边距和内边距 */
+
+.score th,
+.score td {
+    margin: 0;
+    padding: 0;
+}
+
+/* 1.设置单元格的内边距 */
+/* 2.给表头行加上背景颜色、文字颜色*/
+/* 3.设置表头边框、单元格大小、颜色 */
+/* 4.设置单元格的左、右内边距 */
+
+.score thead {
+    color: white;
+    background-color: #333333;
+    /* dark gray */
+}
+
+.score th,
+.score td {
+    border: 1px solid #a2a2a2;
+    padding-left: 1em;
+}
+
+/* 给表脚添加背景颜色*/
+.score tfoot tr {
+    background-color: #cccccc; /* silver */
+    border: 1px solid #a2a2a2;
+}
+
+.score tfoot tr td{
+    border:none;
+}
+
+/* 表单 */
+/* 去掉边框和标题,设置侧栏标题大小，和添置灰色条
+ * 通过设置行高让标题和灰色条水平居中
+ */
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+legend {
+    text-indent: -1000em; /* 首行缩进，让屏幕不显示标题 */
+    margin: 0;
+    padding: 0;
+}
+
+aside-header {
+    position: relative;
+    /*display: table-cell;*/
+    /*vertical-align: middle;*/
+}
+
+.verical-bar {
+    /*float: left;*/
+    position: absolute;
+    /*display: inline-block;*/
+    height: 40px;
+    left: 2%;
+    border-left: 3px solid #CDCDCD;
+}
+
+aside h2 {
+    display: inline-block;
+    font-size: 1em; /* 1倍的父元素大小 */
+    margin-left: 1em;
+}
+
+/*aside h2:before {*/
+    /*!*content: url(../images/straight.png);*!*/
+/*}*/
+
+/*
+*  1.设置标签向左浮动，实现表单标签和文本输入框的宽度一致。文本居右对齐，有一定内边距
+*  2.设置表单内边距
+ */
+
+label {
+    float: left;
+    width: 10em;
+    text-align: right;
+    padding-right: 1em;
+    cursor: pointer; /* 设置光标 */
+}
+
+form div {
+    margin-left: 17em;
+}
+
+form div p {
+    margin-left: 11em;
+}
+
+/* 消除label对divd的浮动影响
+和设置外边距*/
+form div {
+    /*clear: left;*/
+    overflow: auto;
+    margin-top: 1em;
+}
+
+/* 设置提示文本对齐输入框和文本颜色、字号 */
+ p {
+    /*margin-left: 11em;*/
+    color: #656565;
+    font-size: 1em;
+}
+
+/* 覆盖前面设置的单选按钮男、女标签的宽度 */
+.sex,
+.hobbies
+{
+    width: auto;
+}
+
+/* 设置个人描述的宽度、高度 */
+textarea {
+    width: 80%;
+    height: 10em;
+}
+
+/* 提交表单 */
+/*去除默认样式*/
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/*1.设置尺寸和有颜色的边框。
+2.用border-radius生成圆角并应用文本阴影。
+3.通过使用图像或Webkit特有的渐变功能应用渐变的背景*/
+button {
+    width: 99%;
+    line-height: 1.5em; /* 使文本居中 */
+    margin-top: 0.5em;
+    background: #3355d0;
+    border: 1px solid #989898;
+    border-radius: 6px;
+    box-shadow: 2px 2px 2px #ccc;
+    color: #FFFFFF;
+    font-size: 1.5em;
+    /*font-weight: bold;*/
+    text-shadow: 1px 1px 1px #666;
+}
+
+
+
+
+/* 页脚版权 */
+footer {
+    display: block;
+    text-align: center;
+    color: #FFFFFF;
+    background: #000;
+    width: 100%;
+    /*height: 5em;*/
+    line-height: 5em; /* 文本垂直居中 */
+}
+
+
