@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ## 任务六：通过HTML及CSS模拟报纸排版普通
+=======
+## 任务六：通过HTML及CSS模拟报纸排版
+>>>>>>> 52151bcb720ac0ae4a4bad9ad403a9e98d41b058
 ### 任务目的
 - 深入掌握CSS中的字体、背景、颜色等属性的设置
 - 进一步练习CSS布局
@@ -15,4 +19,9 @@
 ### 在线学习参考资料
 - [MDN HTML入门](https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/Introduction)
 - [MDN CSS入门教程](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Getting_started)
+<<<<<<< HEAD
 
+=======
+### demo
+[demo](http://htmlpreview.github.io/?https://github.com/Jecyu/ife-baidu-2017/blob/master/xiaowei-college/task-06/index.html)
+>>>>>>> 52151bcb720ac0ae4a4bad9ad403a9e98d41b058
