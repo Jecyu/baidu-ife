@@ -1,0 +1,1191 @@
+/*Reset重置样式*/
+body, ul, li, dl, dd, dt, img,
+h1, h2, h3, h4, h5, h6,
+p, form, fieldset, input, textarea, button, a,
+table, td, tr, div {
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+ol, ul, li {
+    list-style: none;
+}
+
+img {
+    display: block;
+    border: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+fieldset, select, button, input, textarea {
+    border: 0;
+}
+
+/*Common 公共样式*/
+.clearfix {
+    zoom: 1;
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.public-header {
+    position: relative;
+
+    height: 56px;
+    width: 100%;
+    /*padding-top: 10px;*/
+    /*padding-bottom: 10px;*/
+
+    background: #2189bf;
+}
+
+/*[class^=icon-] {*/
+/*cursor: default;    */
+/*}*/
+
+.icon-star::before {
+    content: url(../images/icon-star.png);
+}
+
+.icon-msg::before {
+    content: url(../images/icon-msg.png);
+}
+
+.icon-account::before {
+    content: url(../images/icon-account.png);
+}
+
+.icon-share::before {
+    content: url(../images/icon-share.png);
+}
+
+.icon-file::before {
+    content: url(../images/icon-file.png);
+}
+
+.icon-file-active::before {
+    content: url(../images/icon-file-active.png);
+}
+
+.icon-doc::before {
+    content: url(../images/icon-doc.png);
+}
+
+.icon-doc-active::before {
+    content: url(../images/icon-doc-active.png);
+}
+
+.icon-v-right::before {
+    content: url(../images/icon-v-right.png);
+}
+
+.icon-v-down--active::before {
+    content: url(../images/icon-v-down-light.png);
+}
+
+.public-header .header-logo {
+    float: left;
+
+    margin: 10px 0 10px 50px;
+}
+
+.public-header .header-nav {
+    float: right;
+    margin-right: 90px;
+}
+
+.header-nav .item {
+    position: relative;
+    display: inline-block;
+    height: 56px;
+    line-height: 56px;
+}
+
+/*法一加入indicator*/
+/*.header-nav .icon-search {*/
+/*position: absolute;*/
+/*top: 50%;*/
+/*left: 17px;*/
+/*z-index: 2;*/
+/*display: inline-block;*/
+
+/*width: 17px;*/
+/*height: 17px;*/
+/*margin-top: -8px;*/
+
+/*background: url(../images/icon-search.png) no-repeat;*/
+/*}*/
+
+.header-nav .search-input {
+    position: relative;
+    display: inline-block;
+
+    width: 312px;
+    height: 28px;
+    margin-right: 20px;
+    /*padding-left: 17px;加上搜索符占的位置*/
+    padding-left: 40px;
+    border-radius: 20px;
+
+    /*法二加入indicator，要在前面加上#fff,no-repeat等attribute*/
+    /*背景图像出现在背景颜色的上面，背景图像结束后显示出颜色*/
+    background: #fff url(../images/icon-search.png) no-repeat 16px 50%;
+}
+
+.header-nav .user-login {
+    font: 12px "SimHei";
+    color: #fff;
+    /*法二，考虑兼容性的话，可以直接对user-login使用background属性设置图片(要设置宽高)*/
+}
+
+.header-nav .user-login::before {
+    content: url(../images/icon-login.png);
+    display: inline-block;
+
+    vertical-align: middle;
+}
+
+/*END Common 公共样式*/
+
+/*Section main*/
+.section-main > .inner-center {
+    min-width: 1280px;
+    height: 1210px;
+}
+
+.section-main .aside-left {
+    float: left;
+    width: 260px;
+    height: inherit;
+
+    font: 12px "SimHei";
+
+    background: #2a2e3d;
+    color: #6e8095;
+}
+
+/*Profile*/
+.aside-left .user-profile .profile-avatar {
+    display: table;
+
+    height: 94px;
+    margin-left: 46px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
+/*外圆内圆*/
+.aside-left .user-profile .outside-circle {
+    position: relative;
+    display: table-cell;
+
+    height: 58px;
+    width: 58px;
+    border: 1px solid #b9babd;
+    border-radius: 50%;
+    vertical-align: middle;
+
+}
+
+.aside-left .user-profile .inner-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    display: inline-block;
+    height: 46px;
+    width: 46px;
+    margin: -23px 0 0 -23px;
+    border-radius: 50%;
+
+    background: #b9babd;
+}
+
+.aside-left .user-profile .username {
+    display: table-cell;
+    /*margin-left: 18px;*/
+    /*外边距不可设置*/
+    padding-left: 18px;
+
+    vertical-align: middle;
+    font: 16px "SimSun";
+
+    color: #fff;
+}
+
+.aside-left .profile-detail-info {
+    padding-left: 62px;
+}
+
+.aside-left .profile-detail-info .item {
+    display: inline-block;
+    height: 28px;
+}
+
+.line {
+    margin: 0 30px;
+    border-right: 2px solid #313545;
+    vertical-align: text-bottom;
+}
+
+.profile-detail-info .item a {
+    color: #b9babd;
+}
+
+.profile-detail-info .item a:hover {
+    color: #fff;
+}
+
+/*.profile-detail-info .item a:visited:hover {*/
+    /*color: #ccc;*/
+/*}*/
+
+/*Profile Nav*/
+
+.aside-left .user-profile-nav {
+    margin-top: 24px;
+}
+
+/*菜单项文字链接颜色*/
+.user-profile-nav ul a {
+    color: #67778b;
+}
+
+/*鼠标移上去文字改变为白色*/
+.user-profile-nav ul a:hover {
+    color: #fff;
+}
+
+.user-profile-nav .primary-list > .item {
+    padding: 15px 0 15px 46px;
+}
+
+/*一级菜单项与图标距离*/
+.primary-list > .item > a {
+    display: inline-block;
+    /*margin-bottom: 16px;*/
+    margin-left: 15px;
+}
+
+.sub-list > .item {
+    margin-left: 20px;
+    margin-top: 18px;
+}
+
+.sub-list > .item > a {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.sub-list > .item a .txt {
+    display: inline-block;
+    margin-left: 4px;
+}
+
+.sub-sub-list > .item {
+    margin-left: 30px;
+    margin-top: 18px;
+}
+
+.sub-sub-list > .item > a {
+    display: inline-block;
+    margin-left: 4px;
+}
+
+/*激活的菜单项文字颜色*/
+.item .active {
+    color: #fff;
+}
+
+/*实现下拉菜单功能*/
+.user-profile-nav ul ul {
+display: none;
+}
+
+.user-profile-nav li:hover > ul {
+display: block;
+}
+
+.user-profile-nav li:hover {
+    background: #383d4e;
+    cursor: pointer;
+}
+
+/*要想改变颜色的同时，也改变图标形状颜色，需要把图标作为background属性插入到元素中*/
+
+/*END Profile-Nav*/
+/*END Profile*/
+
+/*Main*/
+.section-main .main {
+    float: right;
+    height: inherit;
+    width: calc(100% - 260px);
+    min-width: 1020px;
+
+    background: #ededec;
+}
+
+.section-main .main-header {
+    height: 30px;
+    padding-left: 30px;
+
+    background: #fff;
+}
+
+.section-main .breadcrumb-list .list-item {
+    float: left;
+    /*display: inline-block;*/
+    height: 30px;
+
+    font: 12px "SimHei";
+    line-height: 30px;
+    color: #b3b3b3;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+.section-main .breadcrumb-list .list-item + .list-item:before {
+    padding-left: 4px;
+    padding-right: 4px;
+    color: #b3b3b3;
+    content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+.section-main .breadcrumb-list .item-txt-link {
+    color: #b3b3b3;
+}
+
+/* Add a color on mouse-over */
+/*.section-main .breadcrumb-list .item-txt-link:hover {*/
+    /*color: #75a0c6;*/
+/*}*/
+
+.section-main .breadcrumb-list .item-txt-link.selected {
+    color: #75a0c6;
+}
+
+/*Main-body*/
+.section-main .main-body .inner-center {
+    width: 892px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 12px;
+}
+
+/* search Panel*/
+.section-main .main-body .search-panel {
+    width: inherit;
+    height: 86px;
+    padding: 14px 0 14px 28px;
+    border: 1px solid #dddfe1;
+
+    font: 12px "SimHei";
+    background: #fff;
+    color: #b7b7b7;
+}
+
+.main-body .search-list .list-item {
+    float: left;
+    position: relative;
+
+    height: 56px;
+}
+
+/*让按钮居中*/
+.main-body .search-list .list-item:last-child {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.main-body .search-list .search-item {
+    width: 120px;
+    margin-right: 38px;
+}
+
+.main-body .search-list .search-exchange {
+    width: 186px;
+    margin-right: 32px;
+}
+
+.search-exchange  .btn-exchange {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+
+    width: 28px;
+    height: 38px;
+
+    background: url(../images/icon-switch.png) no-repeat;;
+    cursor: pointer;
+}
+
+.main-body .search-list .search-detail {
+    width: 292px;
+    margin-right: 28px;
+}
+
+.main-body .search-list .box {
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+/*第三项，第一行、第二行第一个box间距*/
+.search-list .list-item:nth-child(3) .box:nth-child(2n + 1) {
+    margin-right: 10px;
+}
+
+.main-body .search-list .select {
+    /*去除select默认样式，右箭头、及间距*/
+    appearance: none; /*清除select下拉框默认样式*/
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: url(../images/icon-v-down.png) no-repeat 100px 50%;
+}
+
+.main-body .search-list .select.short {
+    background: url(../images/icon-v-down.png) no-repeat 50px 50%;
+}
+
+.main-body .search-list .select.active {
+    background: url(../images/icon-v-down-blue.png) no-repeat 50px 50%;
+}
+
+.main-body .search-list .select,
+.main-body .search-list .input {
+    height: 25px;
+    width: 70px;
+    padding-left: 6px;
+    border: 1px solid #c3c3c4;
+    font: 12px "SimHei";
+}
+
+.main-body .search-list .label {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/*针对表单两种不同的宽度*/
+.main-body .search-list .short {
+    width: 70px;
+}
+
+.main-body .search-list .long {
+    width: 120px;
+}
+
+/*使按钮复用*/
+.search-btn {
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+    /*margin-top: 15px;*/
+    border-radius: 2px;
+
+    background: #388ac1;
+    color: #fff;
+    cursor: pointer;
+}
+
+/*END search Panel*/
+
+.main-body .history-tips {
+    margin-top: 8px;
+    margin-right: -4px;
+}
+
+.main-body .history-tips .item {
+    float: left;
+    /*height: 64px;*/
+    /*width: 112px;*/
+    margin-right: 4px;
+
+    background: #fff;
+    box-shadow: -1px -1px #dadcde;
+}
+
+.main-body .history-tips .item-link {
+    /*display: block;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 64px;
+    width: 112px;
+}
+
+.history-tips .item-link:hover {
+    border-top: 4px solid #4388c8;
+}
+
+.history-tips .item-blog .item-link {
+    border-top: 0;
+}
+
+.history-tips .item-link[ref="prev"],
+.history-tips .item-link[ref="next"] {
+    width: 30px;
+    /*覆盖前面设置的悬停边框*/
+    border: 0;
+    /*padding: 23px 0 23px 10px;*/
+}
+
+.history-tips .item-blog .item-link {
+    width: 128px;
+    border: 0;
+}
+
+.history-tips .item-link .time-txt {
+    font: 12px "Microsoft YaHei";
+    color: #323333;
+}
+
+.history-tips .item-link .sum-txt {
+    font: 21px "Microsoft YaHei";
+    color: #ec6500;
+}
+
+.history-tips .item-link .sum-txt:before {
+    content: url(../images/icon-sum.png);
+}
+
+.history-tips .item-blog .item-blog-txt {
+    margin-left: 10px;
+    font: 12px "Microsoft YaHei";
+    color: #323333;
+}
+
+.statistic-tips {
+    margin-top: 22px;
+    margin-right: -28px;
+}
+
+.statistic-tips .volume-title {
+    margin-bottom: 8px;
+
+    font: 12px "Microsoft YaHei";
+    color: #323333;
+}
+
+.statistic-tips .item {
+    float: left;
+    width: 202px;
+    height: 72px;
+    margin-right: 28px;
+    padding: 12px 14px 12px 8px;
+    border: 1px solid #d3d4d7;
+    border-left: 3px solid #43b29d;
+
+    background: #fff;
+}
+
+.statistic-tips .item:nth-child(2) {
+    border-left: 3px solid #388bc2;
+}
+
+.statistic-tips .item:nth-child(3) {
+    border-left: 3px solid #d04a36;
+}
+
+.statistic-tips .item:nth-child(4) {
+    border-left: 3px solid #e2cd47;
+}
+
+.statistic-tips .item-text {
+    float: left;
+}
+
+.statistic-tips .item-text .text--l {
+    font: 12px "SimHei";
+    color: #323333;
+}
+
+.statistic-tips .item-text .text--s {
+    font: 10px "SimHei";
+    color: #b7b7b7;
+}
+
+.statistic-tips .item-object {
+    float: right;
+    width: 60px;
+    height: 46px;
+
+    background: #43b29d;
+}
+
+.statistic-tips .item:nth-child(2) .item-object {
+    background: #388bc2;
+}
+
+.statistic-tips .item:nth-child(3) .item-object {
+    background: #d04a36;
+}
+
+.statistic-tips .item:nth-child(4) .item-object {
+    background: #e2cd47;
+}
+
+/*panel group*/
+
+.main-body .panel-group {
+    margin-top: 10px;
+}
+
+.main-body .panel-group .row {
+    margin-top: 8px;
+    /*margin-right: -8px;*/
+    /*清除空白inline-block间距*/
+    /*font-size: 0;*/
+    /*letter-spacing: 0;*/
+    /*word-spacing: 0;*/
+}
+
+.main-body .panel-group .col {
+    display: inline-block;
+    height: 356px;
+    /*margin-right: 8px;*/
+    border: 1px solid #d7d9da;
+    border-radius: 6px;
+
+    font: 12px "Micro YaHei";
+    letter-spacing: normal;
+    word-spacing: normal;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.main-body .panel-group .col--large {
+    width: 532px;
+}
+
+.main-body .panel-group .col--small {
+    width: 352px;
+}
+
+.main-body .panel-group .col-header {
+    height: 40px;
+    padding-left: 20px;
+    border-bottom: 1px solid #e7e8eb;
+
+    font: 12px "SimHei";
+    line-height: 40px;
+
+    background: #f4f5f6;
+    color: #aaa;
+}
+
+.main-body .panel-group .col-body {
+    height: 316px;
+    background: #fff;
+}
+
+/*Tags*/
+.main-body .panel-group .item-tags {
+    position: relative;
+
+    width: 490px;
+    height: 280px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 12px;
+}
+
+.main-body .panel-group .tab-head {
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    width: 82px;
+    height: 26px;
+
+    /*居中文本*/
+    text-align: center;
+    line-height: 26px;
+
+    background: #ededf0;
+    cursor: pointer;
+}
+
+.main-body .panel-group .tab-content {
+    position: absolute;
+
+    top: 37px;
+    left: 0;
+
+    height: 252px;
+    width: 100%;
+    padding-top: 26px;
+    padding-left: 36px;
+    border: 1px solid #d7d7d8;
+    border-radius: 0 5px 5px 5px;
+}
+
+/*将所有"tab-head"定在“1”层位置，而所有内容定位在“2”层位置*/
+/*为了让主选项卡和主内容相互对应，故将tab-1的“tab-head”移到“3”层*/
+#tab-1 .tab-head {
+    z-index: 3;
+
+    border: 1px solid #d7d7d8;
+    /*下边框为0*/
+    border-width: 1px 1px 0;
+    border-radius: 5px 5px 0 0;
+
+    background: #fff;
+}
+
+#tab-2 .tab-head {
+    left: 86px;
+    z-index: 1;
+}
+
+#tab-3 .tab-head {
+    left: 172px;
+    z-index: 1;
+}
+
+#tab-4 .tab-head {
+    left: 258px;
+    z-index: 1;
+}
+
+#tab-5 .tab-head {
+    left: 344px;
+    z-index: 1;
+}
+
+#tab-1 .tab-content {
+    z-index: 2;
+}
+
+/*此时需要怂恿的单元格背景色*/
+/*将"hover"状态下的选项卡主内容都比前面的默认“z-index”值大，而同时必须保证各选项卡的标题在“z-index”的值大*/
+
+#tab-1:hover h3,
+#tab-1:focus h3,
+#tab-1:active h3,
+#tab-2:hover h3,
+#tab-2:focus h3,
+#tab-2:active h3,
+#tab-3:hover h3,
+#tab-3:focus h3,
+#tab-3:active h3,
+#tab-4:hover h3,
+#tab-4:focus h3,
+#tab-4:active h3,
+#tab-5:hover h3,
+#tab-5:focus h3,
+#tab-5:active h3 {
+    z-index: 4;
+
+    border: 1px solid #d7d7d8;
+    /*下边框为0*/
+    border-width: 1px 1px 0;
+    border-radius: 5px 5px 0 0;
+    background: #fff;
+}
+
+#tab-1:hover .tab-content,
+#tab-1:focus .tab-content,
+#tab-1:active .tab-content,
+#tab-2:hover .tab-content,
+#tab-2:focus .tab-content,
+#tab-2:active .tab-content,
+#tab-3:hover .tab-content,
+#tab-3:focus .tab-content,
+#tab-3:active .tab-content,
+#tab-4:hover .tab-content,
+#tab-4:focus .tab-content,
+#tab-4:active .tab-content,
+#tab-5:hover .tab-content,
+#tab-5:focus .tab-content,
+#tab-5:active .tab-content {
+    z-index: 3;
+}
+
+.tab-content .table {
+    font: 12px "SimSun";
+    color: #616164;
+
+    /*需要在table这里设置才有效果,table属性*/
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.tab-content .table td {
+    height: 30px;
+    width: 100px;
+    padding-left: 16px;
+    border: 1px solid #616164;
+
+    /*必须要显式设置单元格的背景颜色，否则设置了z-index的时候会有文字穿插*/
+    background: #fff;
+}
+
+.tab-content .table .selected {
+    background: #f4f5f7;
+}
+
+/*END Tags*/
+
+/* Item Detail*/
+.item-detail {
+    padding-left: 32px;
+    padding-top: 14px;
+
+    font-size: 0;
+}
+
+.item-detail dl {
+    padding-left: 14px;
+    font: 12px "Microsoft YaHei";
+}
+
+.item-detail dl dt {
+    color: #c7c6c6;
+}
+
+.item-detail dl:first-child {
+    width: 280px;
+    height: 42px;
+    border-bottom: 1px solid #e7e8e7;
+}
+
+.item-detail dl:nth-child(2),
+.item-detail dl:nth-child(3) {
+    display: inline-block;
+    height: 44px;
+}
+
+.item-detail dl:nth-child(2) {
+    width: 94px;
+    border-bottom: 1px solid #e7e8e7;
+}
+
+.item-detail dl:nth-child(3) {
+    width: 224px;
+    border: 1px solid #e7e8e7;
+    border-top: 0;
+    border-right: 0;
+}
+
+.item-detail dl:nth-child(4) {
+    width: 280px;
+    height: 146px;
+    border-bottom: 1px solid #e7e8e7;
+}
+
+.item-detail .item-search {
+    height: 26px;
+    width: 280px;
+    margin-top: 4px;
+
+    font: 12px "Microsoft YaHei";
+}
+
+.item-detail .item-search .user-label {
+    float: left;
+    display: inline-block;
+
+    /*居中复选框*/
+    line-height: 26px;
+    color: #c7c6c6;
+}
+
+.item-search .user-label span {
+    vertical-align: middle;
+}
+.item-detail .item-search .user-input {
+    margin-right: 10px;
+    border: 0;
+
+    background: #d6d6d6;
+    /* 居中问题：sub 元素基线与父元素的下标基线对齐。checkbox默认样式的处理。*/
+    /*vertical-align: sub;*/
+    /*需要同时对文字也设置vertical=align:middle才有效果*/
+    vertical-align: middle;
+}
+
+.item-detail .search-btn {
+    float: right;
+}
+
+/* END Item Detail*/
+
+/*Calendar*/
+.calendar {
+    width: 310px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 10px;
+
+    /*清除空白间距*/
+    font-size: 0;
+    text-align: center;
+}
+
+.calendar-header {
+    margin-right: -4px;
+}
+
+.calendar-header .select,
+.calendar-header .button {
+    height: 22px;
+    margin-right: 4px;
+    border: 1px solid #c2c3c3;
+
+    font: 12px "SimHei";
+    background: #fff;
+    color: #535353;
+}
+
+.calendar-header .select {
+    position: relative;
+    padding-left: 4px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/*三角符*/
+/*select无法应用伪元素 */
+/*.calendar-header .select:after {*/
+/*content: "";*/
+/*display: inline-block;*/
+/*position: absolute;*/
+/*top: 0;*/
+/*left: 0;*/
+/*z-index: 1;*/
+
+/*height: 0;*/
+/*width: 0;*/
+/*border-left: 5px solid transparent;*/
+/*border-right: 5px solid transparent;*/
+/*border-top: 3px solid #c2c3c3;*/
+/*}*/
+
+.calendar-header .select[name="year"] {
+    width: 64px;
+    background: url(../images/icon-triangle-down.png) no-repeat 50px 50%;
+}
+
+.calendar-header .select[name="month"] {
+    width: 84px;
+    padding-left: 24px;
+
+    background: url(../images/icon-triangle-down.png) no-repeat 54px 50%;
+}
+
+.calendar-header .select[name="day"] {
+    width: 76px;
+    background: url(../images/icon-triangle-down.png) no-repeat 60px 50%;
+}
+
+.calendar-header .button {
+    width: 64px;
+}
+
+.calendar-body {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 310px;
+    margin-top: 10px;
+
+    font: 12px "SimHei";
+    text-align: center;
+    color: #323333;
+}
+
+.calendar-body tbody a {
+    color: #494949;
+}
+
+/*红色高亮的字体*/
+.calendar-body .highlight {
+    color: #c9161d;
+}
+
+/*使标注的日期边框有间距，而且第一行th的上下横线不分离border-spacing, border-collapse，通过对子元素设置边框实现*/
+/*标注的日期*/
+.calendar-body tbody .marked {
+    border: 1px solid #f5c21d;
+}
+
+/*tr可以设置边框，前提是table { border-collapse: collapse; }*/
+.calendar-body thead > tr {
+    border-top: 1px solid #a9cfec;
+    border-bottom: 1px solid #e1e1e2;
+}
+
+.calendar-body thead th {
+    width: 40px;
+    height: 32px;
+    /*border-top: 1px solid #a9cfec;*/
+    /*border-bottom: 1px solid #e1e1e2;*/
+
+    font-weight: normal;
+}
+
+.calendar-body tbody td {
+    width: 40px;
+    height: 40px;
+    /*border: 1px solid #5a5b5b;*/
+}
+
+.calendar-body tbody a {
+    display: inline-block;
+    width: 40px;
+    height: 39px;
+}
+
+.calendar-body tbody a:hover {
+    border: 1px solid #f5c21d;
+}
+
+/*END Calendar*/
+
+/*Brand List*/
+.body-brand {
+    padding-top: 18px;
+    /*padding-left: 40px;*/
+}
+
+.brand-table {
+    width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    font: 12px "SimHei";
+    text-align: center;
+}
+
+.brand-table td,
+.brand-table th {
+    height: 24px;
+    border: 1px solid #cbcbcb;
+}
+
+.brand-table .horizon-line {
+    position: relative;
+    display: inline-block;
+
+    width: 168px;
+    height: 4px;
+    margin-left: 22px;
+    margin-bottom: 2px;
+    background: #dcdcdc;
+}
+
+/*除了使用这种方法外，也可以直接增加一个子元素做背景*/
+.brand-table .horizon-line:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: inline-block;
+
+    width: 140px;
+    height: 4px;
+    background: #ed6e52;
+}
+
+/*分别设置各行的线条颜色、宽度*/
+.brand-table tr:nth-child(2) .horizon-line:before {
+    width: 120px;
+    background: #ef8150;
+}
+
+.brand-table tr:nth-child(3) .horizon-line:before {
+    width: 104px;
+    background: #f19e4f;
+}
+
+.brand-table tr:nth-child(4) .horizon-line:before {
+    width: 96px;
+    background: #7fcbf0;
+}
+
+.brand-table tr:nth-child(5) .horizon-line:before {
+    width: 86px;
+    background: #8ecdee;
+}
+
+.brand-table tr:nth-child(6) .horizon-line:before {
+    width: 76px;
+    background: #7fcbf0;
+}
+
+.brand-table tr:nth-child(7) .horizon-line:before {
+    width: 66px;
+    background: #7fcbf0;
+}
+
+.brand-table tr:nth-child(8) .horizon-line:before {
+    width: 56px;
+    background: #7fcbf0;
+}
+
+.brand-table tr:nth-child(9) .horizon-line:before {
+    width: 46px;
+    background: #7fcbf0;
+}
+
+.brand-table tr:nth-child(10) .horizon-line:before {
+    width: 36px;
+    background: #7fcbf0;
+}
+
+/*最后一行的下边线边框为0*/
+.brand-table tr:nth-child(10) td {
+    border-bottom: 0;
+}
+
+.brand-table tr:hover {
+    background: #f4f5f7;
+    cursor: pointer;
+}
+
+/*分别设置各列的宽度,前提在th上要设置scope="col"才有效果*/
+.brand-table col:first-child {
+    width: 66px;
+}
+
+.brand-table col:nth-child(2) {
+    width: 92px;
+}
+
+.brand-table col:nth-child(3) {
+    width: 290px;
+}
+
+.brand-table th:nth-child(3) {
+    padding-left: 28px;
+    text-align: left;
+}
+
+/* END Brand List*/
+
+/*END panel group*/
+/*END Main body*/
+
+/*END Main*/
+/*END Section main*/
