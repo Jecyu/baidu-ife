@@ -1,0 +1,93 @@
+/*Reset初始化*/
+body, div {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.outline {
+    border: 1px solid #5a5b5b;
+}
+
+/*设置容器大小外观、边距*/
+.flex-container {
+    /*height: 100%;*/
+    padding: 20px;
+}
+
+.flex-item {
+    width: 150px;
+    padding: 20px;
+}
+
+.item-1 {
+    height: 120px;
+    border: 1px solid #f00;
+}
+
+.item-2 {
+    height: 100px;
+    border: 1px solid #f00;
+}
+
+.item-3 {
+    height: 40px;
+    border: 1px solid #f00;
+}
+
+.item-4 {
+    height: 200px;
+    border: 1px solid #0000ff;
+}
+
+/*屏幕大于640px,四个元素中间对齐，第一个元素紧贴左边，第四个元素紧贴右边，其他元素等距离分布*/
+@media all and (min-width: 641px) {
+    .flex-container {
+        /*建立弹性框*/
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+/*屏幕小于640px,四个元素上方对齐，水平方向均匀分布*/
+@media (min-width: 601px ) and (max-width: 640px) {
+    .flex-container {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+}
+
+/*如果一行元素的宽度超过浏览器宽度的时候第四个元素位于最前面*/
+@media all  and (max-width: 600px) {
+    .flex-container {
+        display: flex;
+        display: -webkit-flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        /*justify-content: space-around;*/
+        /*align-content对于多行而且父容器高度确定才有效果，这里不使用align-content: space-around
+        因为效果图要求行与行之间的边距为固定20px*/
+        /*align-content: space-around;*/
+        align-items: flex-start;
+
+        margin-top: -20px;
+    }
+
+    .flex-item {
+        /*给每个项目添加上边距，之后在flex-container添加负边距去掉额外的20px*/
+        margin-top: 20px;
+    }
+
+    /*order越小排在越前，在ltr情况下*/
+    .item-4 {
+        /*order可以是负数*/
+        order: -1;
+    }
+}
+
+
+
