@@ -1,0 +1,191 @@
+<!-- 使用 HTML5 doctype，不区分大小写 -->
+<!doctype html>
+<!--简体中文页面-->
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <!--优先使用IE最新版本和Chrome-->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge，chrome=1">
+    <!-- 页面描述 -->
+    <meta name="description" content="不超过150个字符"/>
+    <!-- 页面关键词 -->
+    <meta name="keywords" content=""/>
+    <!-- 网页作者 -->
+    <meta name="author" content="name, email@gmail.com"/>
+    <!-- 搜索引擎抓取 -->
+    <meta name="robots" content="index,follow"/>
+    <!--为移动设备添加viewport，避免因网页渲染的分辨率不同造成内容的过小等问题-->
+    <!--device-width为设备分辨率宽度-->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>任务十一：移动Web页面布局实践</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div class="public-header">
+    <div class="header-title">
+        <span class="arrow"></span>
+        <a class="back-btn" href="#">返回</a>
+        <h1 class="title">这是标题</h1>
+    </div>
+    <nav>
+        <ul class="header-nav">
+            <li class="item"><a class="item-txt-link" href="#">导航</a></li>
+            <li class="item"><a class="item-txt-link" href="#">导航</a></li>
+            <li class="item"><a class="item-txt-link" href="#">导航</a></li>
+            <li class="item"><a class="item-txt-link" href="#">导航</a></li>
+        </ul>
+    </nav>
+</div>
+<div class="section-main">
+    <div class="main">
+        <div class="index-banner">
+        </div>
+        <div class="label-wrapper">
+            <ul class="label-groups">
+                <li class="item">
+                    <a class="item-link" href="#">
+                        <img class="item-img-link" src="images/icon-label.png" alt="">
+                        <p class="item-txt-link">标签</p>
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="item-link" href="#">
+                        <img class="item-img-link" src="images/icon-label.png" alt="">
+                        <p class="item-txt-link">标签</p>
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="item-link" href="#">
+                        <img class="item-img-link" src="images/icon-label.png" alt="">
+                        <p class="item-txt-link">标签</p>
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="item-link" href="#">
+                        <img class="item-img-link" src="images/icon-label.png" alt="">
+                        <p class="item-txt-link">标签</p>
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="item-link" href="#">
+                        <img class="item-img-link" src="images/icon-label.png" alt="">
+                        <p class="item-txt-link">标签</p>
+                    </a>
+                </li
+            </ul>
+        </div>
+        <div class="cols">
+            <div class="col">
+                <a class="col-link" href="#">
+                    <img class="col-img" src="images/col-01.jpg" alt="">
+                    <h2 class="col-title-large">分栏一</h2>
+                    <h3 class="col-title--small">分栏小标题</h3>
+                </a>
+            </div>
+            <div class="col">
+                <a class="col-link" href="#">
+                    <img class="col-img" src="images/col-02.jpg" alt="">
+                    <h2 class="col-title-large">分栏一</h2>
+                    <h3 class="col-title--small">分栏小标题</h3>
+                </a>
+            </div>
+            <div class="col">
+                <a class="col-link" href="#">
+                    <img class="col-img" src="images/col-03.jpg" alt="">
+                    <h2 class="col-title-large">分栏一</h2>
+                    <h3 class="col-title--small">分栏小标题</h3>
+                </a>
+            </div>
+        </div>
+        <div class="mod">
+            <div class="mod-header"><h2 class="mod-title">模块一</h2></div>
+            <div class="mod-body">
+                <div class="media card">
+                    <div class="media-object">
+                        <img class="mod-img" src="images/mod.jpg" alt="">
+                    </div>
+                    <div class="media-body">
+                        <a class="txt" href="">这是文案</a>
+                        <a class="txt" href="">这是文案</a>
+                        <a class="txt" href="">这是文案</a>
+                        <a class="txt" href="">这是文案</a>
+                    </div>
+                </div>
+                <div class="media card">
+                    <div class="media-object">
+                        <img class="mod-img" src="images/mod.jpg" alt="">
+                    </div>
+                    <div class="media-body">
+                        <a class="txt" href="">这是文案</a>
+                        <a class="txt" href="">这是文案</a>
+                        <a class="txt" href="">这是文案</a>
+                        <a class="txt" href="">这是文案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mod">
+            <div class="mod-header"><h2 class="mod-title">模块二</h2></div>
+            <div class="mod-body">
+                <div class="media card">
+                    <div class="media-object">
+                        <img class="mod-img" src="images/mod.jpg" alt="">
+                    </div>
+                    <div class="media-body">
+                        <a class="txt" href="">这是文案</a>
+                        <a class="txt" href="">这是文案</a>
+                        <a class="txt" href="">这是文案</a>
+                        <a class="txt" href="">这是文案</a>
+                    </div>
+                </div>
+                <div class="media card">
+                    <div class="media-object">
+                        <img class="mod-img" src="images/mod.jpg" alt="">
+                    </div>
+                    <div class="media-body">
+                        <a class="txt" href="">这是文案</a>
+                        <a class="txt" href="">这是文案</a>
+                        <a class="txt" href="">这是文案</a>
+                        <a class="txt" href="">这是文案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-1 article">
+            <a href="#" class="media">
+                <div class="media-object">
+                    <img class="article-img" src="images/article.jpg" alt="">
+                </div>
+                <div class="media-body">
+                    <h2 class="article-title">这是文章标题字号是22的文章标题</h2>
+                    <p class="article-date">文章来源&nbsp;6分钟前</p>
+                </div>
+            </a>
+        </div>
+        <div class="article-2 article">
+            <a href="#" class="media">
+                <div class="media-object">
+                    <img class="article-img" src="images/article.jpg" alt="">
+                </div>
+                <div class="media-body">
+                    <h2 class="article-title">这是另一个文章标题</h2>
+                    <p class="article-date">文章来源&nbsp;7分钟前</p>
+                </div>
+            </a>
+        </div>
+        <div class="article-3 article">
+            <a href="#">
+                <h2 class="article-title">这个也是文章标题字号是22的文章标题</h2>
+                <div class="gallery">
+                    <div class="item"><img class="article-img" src="images/article.jpg" alt=""></div>
+                    <div class="item"><img class="article-img" src="images/article.jpg" alt=""></div>
+                    <div class="item"><img class="article-img" src="images/article.jpg" alt=""></div>
+                </div>
+                <p class="article-date">文章来源&nbsp;7分钟前</p>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
