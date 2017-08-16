@@ -11,7 +11,13 @@ body {
     background: #f5f5f5;
 }
 
-body, a, h1, h2, h3, h4, h5, h6, ol, ul, li, p, img {
+html, body {
+    /* 禁止选中文本（如无文本选中需求，此为必选项） */
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+body, a, h1, h2, h3, h4, h5, h6, ol, ul, li, p, img, div {
     padding: 0;
     margin: 0;
 }
@@ -34,16 +40,25 @@ a {
 }
 
 img {
-    display: inline-block;
+    /*display: inline-block;*/
+    /*改为block去掉空白符对父容器的影响*/
+    display: block;
     border: 0;
+}
+
+a, img {
+    /* 禁止长按链接与图片弹出菜单 */
+    -webkit-touch-callout: none;
 }
 
 /*Common Style*/
 .public-header .header-title {
+    position: relative;
     display: -webkit-flex;
     display: flex;
-    position: relative;
-    align-items: center;
+    -webkit-align-items: center;
+            align-items: center;
+
     padding: 1.5rem;
     /*height: 11.6rem;*/
 
@@ -107,8 +122,10 @@ img {
 .header-nav {
     display: -webkit-flex;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    -webkit-justify-content: space-around;
+            justify-content: space-around;
+    -webkit-align-items: center;
+            align-items: center;
 
     background: #fff;
 }
@@ -116,7 +133,7 @@ img {
 /*成比例拉伸项目*/
 .header-nav .item {
     -webkit-flex-grow: 1;
-    flex-grow: 1;
+            flex-grow: 1;
     text-align: center;
 }
 
@@ -133,7 +150,8 @@ img {
     left: 50%;
     bottom: 0;
 
-    width: 8rem;
+    /*width: 8rem;*/
+    width: 100%;
     transform: translateX(-50%);
     border-bottom: 0.5rem solid #90d3d9;
 }
@@ -141,11 +159,15 @@ img {
 /*Banner*/
 
 .index-banner {
-    min-height: 22.4rem;
+    /*min-height: 22.4rem;*/
+    /*width: 100%;*/
+    /*background: url(../images/banner.jpg) no-repeat;*/
+    /*-webkit-background-size: cover;*/
+    /*background-size: cover;*/
+}
+
+.index-banner img {
     width: 100%;
-    background: url(../images/banner.jpg) no-repeat;
-    -webkit-background-size: cover;
-    background-size: cover;
 }
 
 /*Label groups*/
@@ -159,10 +181,13 @@ img {
 .label-groups {
     display: -webkit-flex;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    -webkit-justify-content: space-around;
+            justify-content: space-around;
+    -webkit-align-items: center;
+            align-items: center;
 
-    height: 15rem;
+    /*设置了内边距百分比后，不额外设置高度了*/ /*height: 15rem;*/ padding-bottom: 10%;
+    padding-top: 10%;
     border-bottom: .2rem solid #dedede;
 }
 
@@ -172,14 +197,16 @@ img {
 }
 
 .label-groups .item-link {
+    /*height: 6rem;*/
+    /*width: 5rem;*/
     text-align: center;
+    /*background: url(../images/icon-label.png) no-repeat;*/
+    /*background-size: contain;缩放背景图片以完全装入背景区，最终呈现为圆形*/
 }
 
 .label-groups .item-img-link {
     display: inline-block;
 
-    /*height: 6rem;*/
-    max-width: 5rem;
     /*fluid image*/
     width: 70%;
     padding-bottom: 1rem;
@@ -194,17 +221,22 @@ img {
 .cols {
     display: -webkit-flex;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    -webkit-align-items: center;
+            align-items: center;
     overflow: hidden;
 
     min-height: 18rem;
+    padding-top: 10%;
+    padding-bottom: 10%;
+
     background: #fff;
 }
 
 .cols .col {
     -webkit-flex-grow: 1;
-    flex-grow: 1;
+            flex-grow: 1;
     text-align: center;
 }
 
@@ -214,7 +246,9 @@ img {
 }
 
 .cols .col-img {
-    max-width: 11rem;
+    /*for text-align: center*/
+    display: inline-block;
+    /*max-width: 11rem;*/
     /*需要考虑文字占据它的父容器*/
     width: 70%;
 }
@@ -233,7 +267,7 @@ img {
 
 /* Modal */
 .mod {
-    height: 30rem;
+    /*height: 30rem;*/
     margin-top: 1.5rem;
     padding: 1rem;
     background: #fff;
@@ -258,7 +292,8 @@ img {
 
 /*image on the left*/
 .mod-body .mod-img {
-    max-width: 10rem;
+    /*max-width: 10rem;*/
+    width: 100%;
 }
 
 .mod-body .card + .card {
@@ -268,28 +303,47 @@ img {
 .media {
     display: -webkit-flex;
     display: flex;
-    justify-content: space-between;
-    /*height: 22rem;*/
+    -webkit-justify-content: flex-start;
+            justify-content: flex-start;
 }
 
 .media-object {
     /*scale*/
+    width: 35%;
+    height: 45%;
 }
 
 /*text on the right*/
-.media-body {
+.mod .media-body {
     display: -webkit-flex;
     display: flex;
-    flex-wrap: wrap;
+    -webkit-flex-flow: row wrap;
+            flex-flow: row wrap;
     /*上下左右两边排列*/
-    justify-content: space-between;
-    align-content: space-between;
-    /* width: 70%; */
+    -webkit-justify-content: space-between;
+            justify-content: space-between;
+    -webkit-align-content: space-between;
+            align-content: space-between;
+    /*这里也可以使用width: 100%代替伸缩，当手机横屏的时候自动扩充*/
+    /*flex-grow: 1;*/
+    width: 65%;
     margin-left: 1rem;
 }
 
-.media-body .txt {
-    padding: 1.2rem 0.75rem;
+.mod .media-body .txt {
+    display: flex;
+    display: -webkit-flex;
+    /*flex-grow: 1;*/
+    /*居中文本*/
+    -webkit-align-items: center;
+            align-items: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+
+    /*padding: 1.2rem 0.75rem;*/
+    height: 45%;
+    width: 48%;
+
     background: #f8f8f8;
     color: #646464;
 }
@@ -304,8 +358,22 @@ img {
     background: #fff;
 }
 
+/*覆盖前面的flex布局方向*/
+.article .media-body {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: column nowrap;
+            flex-flow: column nowrap;
+    -webkit-justify-content: space-between;
+            justify-content: space-between;
+
+    width: 65%;
+    margin-left: 1rem;
+}
+
 .article .article-img {
-    width: 10rem;
+    /*width: 10rem;*/
+    width: 100%;
 }
 
 .article .article-title {
@@ -321,20 +389,26 @@ img {
 .article .gallery {
     display: -webkit-flex;
     display: flex;
-    justify-content: space-between;
-    /*align-items: flex-start;*/
+    -webkit-justify-content: space-between;
+            justify-content: space-between;
 
     margin-top: 1rem;
     margin-bottom: 1rem;
 
     /*清除空白间距*/
-    font-size: 0;
+    /*font-size: 0;*/
+}
+
+.article .gallery .item {
+    /*width: 33.3%;*/
+    /*flex-grow针对felx-item项目本身包含有内容，不会默认进行拉伸。需要显示设置*/
+    -webkit-flex-grow: 1;
+            flex-grow: 1;
 }
 
 .article .gallery .article-img {
-    width: 100% ;
+    width: 100%;
 }
-
 
 /*@media (max-device-width: 30rem) {*/
 /*.media-body .txt {*/
