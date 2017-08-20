@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>任务一：零基础JavaScript编码（一）</title>
+</head>
+<body>
+    <!--本任务完成的功能为：用户可以在输入框中输入任何内容，点击“确认填写”按钮后，
+    用户输入的内容会显示在“您输入的值是”文字的右边-->
+    <label><span id="question-text">请输入2016-2017NBA季后赛的冠军球队：</span><input id="aqi-input" type="text"></label>
+    <button id="button">确认填写</button>
+    <div>你输入的值是：<span id="aqi-display">尚无录入</span></div>
+    <button id="next-button">下一题</button>
+    <script>
+        
+        (function() {
+            /*
+             * 在注释下方写下代码
+             * 给按钮button绑定一个点击事件
+             * 在事件处理函数中
+             * 获取aqi-input输入的值，并显示在aqi-display中
+             */
+            // 通过Id获取buttonh和span元素
+            var myButton = document.getElementById("button");
+            var nextQuestion = document.getElementById("next-button");
+            var displayContent = document.getElementById("aqi-display");
+
+            // 给按钮注册事件
+            myButton.onclick = function () {
+                // 把输入框input的值赋予给span元素
+                displayContent.innerHTML = document.getElementById("aqi-input").value;
+            }
+
+            nextQuestion.onclick = function () {
+                document.getElementById("aqi-input").value = "";
+                document.getElementById("question-text").innerText = "MVP是谁？";
+            }
+        })();
+
+    </script>
+</body>
+</html>
