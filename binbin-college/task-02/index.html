@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>任务二：零基础JavaScript编码（二）</title>
+</head>
+<body>
+<h3>污染城市列表</h3>
+<label>请输入城市最低空气质量：<input id="aqi-input" type="text" placeholder="请输入整数 0-100"></label>
+<button id="button" style="display: block">点击显示符合条件的城市</button>
+<ul id="aqi-list">
+
+</ul>
+<script>
+    var aqiData = [
+        ["北京", 90],
+        ["上海", 50],
+        ["福州", 10],
+        ["广州", 50],
+        ["成都", 90],
+        ["西安", 100]
+    ];
+    // 新建数组，用于存储符合条件的城市以此进行重新排序
+    var newAqiData = [];
+
+    (function () {
+        // 通过id获取ul元素和click button
+        var aqiList = document.getElementById("aqi-list");
+        var displayButton = document.getElementById("button");
+
+        // 绑定按钮点击事件
+        displayButton.onclick = function () {
+            // 用于检测用户是否重新输入，即输入框的值是否有变化，以此决定是否重新排列显示
+            // 先归零后排列，清除列表和数组
+            aqiList.innerHTML = null;
+            newAqiData.length = 0;
+            // 获取用户输入的值，并用“+”号转换为数字Number类型
+            var airMinQuality = +document.getElementById("aqi-input").value || 0;
+
+            // 遍历读取apiData中各个城市的数据
+            // 将空气质量指数大于60的城市显示到aqi-list的列表中
+            // i控制次数
+            for (var i = 0, len = aqiData.length; i < len; i++) {
+                // 空气质量指数比较
+                if (aqiData[i][1] >= airMinQuality) {
+                    newAqiData[newAqiData.length] = aqiData[i];
+                    // 或者使用arr.push()
+                    // newAqiData.push(aqiData[i]);
+                }
+            }
+
+            // 法一：利用冒泡排序法
+            // 从大到小排序新数组
+            // 外循环控制趟数
+//            for (var i = 0, len = newAqiData.length; i < len - 1; i++) {
+//                // 内循环控制两两比较的次数
+//                for (var j = 0; j < newAqiData.length - 1; j++) {
+//                    if (newAqiData[j][1] < newAqiData[j + 1][1]) {
+//                        var tmp = newAqiData[j + 1];
+//                        newAqiData[j + 1] = newAqiData[j];
+//                        newAqiData[j] = tmp;
+//                    }
+//                }
+//            }
+            // 法二：利用数组内置函数sort()排序
+            // 函数为比较函数，a, b代表数组任意两个元素
+            newAqiData.sort(function (a, b) {
+                // b[1],a[1]表示比较第二列的数字，b[0],a[0]则表示比较第一列，b[1]-a[1]表示降序
+                return b[1] - a[1];
+            });
+
+
+            // 输出满足最低空气质量的城市列表
+            for (var i = 0, len = newAqiData.length; i < len; i++) {
+                aqiList.innerHTML += '<li>' + '第' + (i + 1) + '名' + ' ' + newAqiData[i][0] + '：'
+                    + newAqiData[i][1] + '</li>';
+                // 此处也可以在循环体中 createElement 并 append 到父元素中。
+                // li = document.createElement("li");
+                // li.appendChild(document.createTextNode('第' + (i + 1) + '名' + ' ' + newAqiData[i][0] + '：'
+                //    + newAqiData[i][1] ));
+                // aqiList.appendChild(li);
+            }
+        }
+    })();
+</script>
+</body>
+</html>
