@@ -12,6 +12,11 @@
 
 </ul>
 <script>
+    // 解题思路：
+    // 1.筛选出值大于60的城市赋值给一个新的数组
+    // 2.对这个数组进行从降序
+    // 3.动态创建标签并打印名次和城市及其空气质量
+
     var aqiData = [
         ["北京", 90],
         ["上海", 50],
@@ -39,16 +44,20 @@
 
             // 遍历读取apiData中各个城市的数据
             // 将空气质量指数大于60的城市显示到aqi-list的列表中
+            // 法一：
             // i控制次数
-            for (var i = 0, len = aqiData.length; i < len; i++) {
-                // 空气质量指数比较
-                if (aqiData[i][1] >= airMinQuality) {
-                    newAqiData[newAqiData.length] = aqiData[i];
-                    // 或者使用arr.push()
-                    // newAqiData.push(aqiData[i]);
-                }
-            }
-
+//            for (var i = 0, len = aqiData.length; i < len; i++) {
+//                // 空气质量指数比较
+//                if (aqiData[i][1] >= airMinQuality) {
+//                    newAqiData[newAqiData.length] = aqiData[i];
+//                    // 或者使用arr.push()
+//                    // newAqiData.push(aqiData[i]);
+//                }
+//            }
+            // 法二：使用数组内置方法
+            newAqiData = aqiData.filter(function (a) {
+                return a[1] >= airMinQuality;
+            });
             // 法一：利用冒泡排序法
             // 从大到小排序新数组
             // 外循环控制趟数
@@ -71,15 +80,22 @@
 
 
             // 输出满足最低空气质量的城市列表
-            for (var i = 0, len = newAqiData.length; i < len; i++) {
-                aqiList.innerHTML += '<li>' + '第' + (i + 1) + '名' + ' ' + newAqiData[i][0] + '：'
-                    + newAqiData[i][1] + '</li>';
-                // 此处也可以在循环体中 createElement 并 append 到父元素中。
-                // li = document.createElement("li");
-                // li.appendChild(document.createTextNode('第' + (i + 1) + '名' + ' ' + newAqiData[i][0] + '：'
-                //    + newAqiData[i][1] ));
-                // aqiList.appendChild(li);
-            }
+            (function write () {
+                for (var i = 0, len = newAqiData.length; i < len; i++) {
+                    aqiList.innerHTML += '<li>' + '第' + (i + 1) + '名' + ' ' + newAqiData[i] + '</li>';
+                    // 此处也可以在循环体中 createElement 并 append 到父元素中。
+                    // li = document.createElement("li");
+                    // aqiList.appendChild(li);
+                    // li.innerHTML = '第' + (i + 1) + '名' + ' ' + newAqiData[i];
+
+                    // 或 li.appendChild(document.createTextNode('第' + (i + 1) + '名' + ' ' + newAqiData[i]
+                    //    ));
+
+                }
+            })();
+
+            // 将数组以表格的形式显示在控制台中, 可读性更强.
+            // console.table(newAqiData);
         }
     })();
 </script>
