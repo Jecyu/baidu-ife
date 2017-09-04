@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>任务四：基础JavaScript练习（一）</title>
+    <style>
+
+        ul, li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            float: left;
+            margin-top: 10px;
+            margin-right: 10px;
+            padding: 10px;
+
+            color: #fff;
+            background: #ff3f41;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<!--<div>-->
+<input id="num-input" type="text" placeholder="请输入数字">
+<button id="left-into-btn">左侧入</button>
+<button id="right-into-btn">右侧入</button>
+<button id="left-out-btn">左侧出</button>
+<button id="right-out-btn">右侧出</button>
+<ul id="queue">
+    <!--
+    <li class="item">10</li>
+    <li>3</li>
+    <li>7</li>
+    <li>12</li>
+    <li>11</li>
+    <li>30</li>
+    -->
+</ul>
+<!--</div>-->
+<script>
+    // 解题思路：
+    // 1.读取输入框中的数值，检查输入数字的合法性，并存储到一个变量中 value
+    // 2.单击插入按钮：ul.appendChild() insertBefore(),同时绑定单击移除事件使用this对象
+        // 2.1 左侧入 获取变量的值可以作为文本节点作为li的内容,把li标签插入到ul列表首端firstChild
+        // 2.2 右侧入 获取变量的值作为li的内容,把li标签插入到ul列表末端lastChild
+    // 3.单击移除按钮 parentNode属性 removeChild
+    // 3.1 左侧出 获取首端li的内容弹窗显示，点击确认后删除该li标签firstChild
+    // 3.2 右侧出 获取末端li的内容弹窗显示，点击确认后删除该li标签lastChild
+    // 4.单击队列任意一个元素进行移除，给所有li标签绑定单击移除事件（ul.removeChild）
+    // 4.1 定位li节点 this
+    // 4.2 删除
+
+    /**
+     * getInput
+     * 获取用户输入的值，并检测数字输入的合法性
+     * @return [Number] num 返回输入的数值
+     */
+    function getInput() {
+        var num = document.getElementById('num-input').value;
+        // 转为数字,如果输入的是非数字，则转为NaN
+        num = +num;
+        console.log(num);
+        // 非数字的处理
+        if (typeof num !== 'number' || isNaN(num)) {
+            num = 0;
+        }
+
+        return num;
+    }
+
+    /**
+     * insertToLeft
+     * 把输入的数字插入到队列的左边
+     * @param [Number] num 用户输入的数字
+     */
+    function insertFromLeft(num) {
+        var li = document.createElement('li');
+        li.innerHTML = num;
+        li.addEventListener('click', function () {
+            this.parentNode.removeChild(this);
+        });
+        // 定位父节点
+        var ul = document.querySelector('#queue');
+        // 插入到头部
+        ul.insertBefore(li, ul.firstChild);
+    }
+
+    /**
+     * insertToLeft
+     * 把输入的数字插入到队列的右边
+     * @param [Number] num 用户输入的数字
+     */
+    function insertFromRight(num) {
+        var li = document.createElement('li');
+        li.innerHTML = num;
+        li.addEventListener('click', function () {
+            this.parentNode.removeChild(this);
+        });
+        // 定位父节点
+        var ul = document.querySelector('#queue');
+        // 插入到尾部
+        ul.insertBefore(li, null);
+
+    }
+
+    /**
+     * deleteFormLeft
+     * 移除第一个元素
+     */
+    function deleteFromLeft() {
+        var ul = document.querySelector('#queue');
+        // 获取要删除的元素的值
+        var value = ul.firstChild.innerHTML;
+        // message存储确认confirm消息对话框的返回值
+        var message = confirm('是否删除该元素：' + value + '?');
+        if (message) {
+            ul.removeChild(ul.firstChild);
+        }
+    }
+
+    /**
+     * deleteFormRight
+     * 移除最后一个元素
+     */
+    function deleteFromRight() {
+        var ul = document.querySelector('#queue');
+        // 获取要删除的元素的值
+        var value = ul.lastChild.innerHTML;
+        var message = confirm('是否删除该元素：' + value + '?');
+        if (message) {
+            ul.removeChild(ul.lastChild);
+        }
+    }
+
+    /**
+     * init
+     * 给插入、删除等按钮绑定点击事件，触发插入、删除操作
+     */
+    function init() {
+        var leftIntoBtn = document.getElementById('left-into-btn');
+        var rightIntoBtn = document.getElementById('right-into-btn');
+        var leftOutBtn = document.getElementById('left-out-btn');
+        var rightOutBtn = document.getElementById('right-out-btn');
+        // var num = getInput();
+
+
+        // 绑定点击事件
+        leftIntoBtn.addEventListener('click', function () {
+            // var num = getInpu()需要放在函数里面才能访问到
+            var num = getInput();
+            insertFromLeft(num);
+        });
+
+        rightIntoBtn.addEventListener('click', function () {
+            var num = getInput();
+            insertFromRight(num);
+        });
+
+        leftOutBtn.addEventListener('click', function () {
+            var num = getInput();
+            deleteFromLeft(num);
+        });
+
+        rightOutBtn.addEventListener('click', function () {
+            var num = getInput();
+            deleteFromRight(num);
+        });
+
+//        // 给所有li元素绑定单击事件
+//        var lis = document.querySelectorAll('li');
+//        for (var i = 0, len = lis.length; i < len; i++) {
+//            lis[i].addEventListener('click', function () {
+//                this.parentNode.removeChild(this);
+//            });
+//        }
+    }
+
+    init();
+
+</script>
+</body>
+</html>
