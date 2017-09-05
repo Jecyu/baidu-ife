@@ -48,32 +48,45 @@
     // 解题思路：
     // 1.读取输入框中的数值，检查输入数字的合法性，并存储到一个变量中 value
     // 2.单击插入按钮：ul.appendChild() insertBefore(),同时绑定单击移除事件使用this对象
-        // 2.1 左侧入 获取变量的值可以作为文本节点作为li的内容,把li标签插入到ul列表首端firstChild
-        // 2.2 右侧入 获取变量的值作为li的内容,把li标签插入到ul列表末端lastChild
+    // 2.1 左侧入 获取变量的值可以作为文本节点作为li的内容,把li标签插入到ul列表首端firstChild
+    // 2.2 右侧入 获取变量的值作为li的内容,把li标签插入到ul列表末端lastChild
     // 3.单击移除按钮 parentNode属性 removeChild
     // 3.1 左侧出 获取首端li的内容弹窗显示，点击确认后删除该li标签firstChild
     // 3.2 右侧出 获取末端li的内容弹窗显示，点击确认后删除该li标签lastChild
     // 4.单击队列任意一个元素进行移除，给所有li标签绑定单击移除事件（ul.removeChild）
-    // 4.1 定位li节点 this
+    // 4.1 定位li节点 this/event.target
     // 4.2 删除
 
     /**
-     * getInput
-     * 获取用户输入的值，并检测数字输入的合法性
-     * @return [Number] num 返回输入的数值
+     * isLegal
+     * 验证输入的数值是否合乎规范、要求
+     * @param [Number] 用户传入的值
+     * @return [Boolean] 返回ture或false
      */
-    function getInput() {
-        var num = document.getElementById('num-input').value;
-        // 转为数字,如果输入的是非数字，则转为NaN
-        num = +num;
-        console.log(num);
-        // 非数字的处理
-        if (typeof num !== 'number' || isNaN(num)) {
-            num = 0;
+    function isLegal(num) {
+        if (isNaN(num)) {
+            alert("请输入一个数字");
+            return false;
+        } else if (num === '' || num === null) {
+            alert("不能为空");
+            return false;
+        } else {
+            return true;
         }
-
-        return num;
     }
+
+    /**
+     * isNumber
+     * 验证一个值是否为数字
+     * @param   [value] 类型为用户传入的值
+     * @return [Boolean] 返回true或false
+     */
+    function isNumber(value) {
+        // isFinite会排除NaN和Infinity，但它会把值为非数字转为数字，故加上typeof判断。
+        // 比单独使用isNaN()好，把Infinity也排除掉
+        return typeof value === 'number' && isFinite(value);
+    }
+
 
     /**
      * insertToLeft
@@ -100,6 +113,7 @@
     function insertFromRight(num) {
         var li = document.createElement('li');
         li.innerHTML = num;
+        // 给li标签绑定单击清除事件
         li.addEventListener('click', function () {
             this.parentNode.removeChild(this);
         });
@@ -115,13 +129,18 @@
      * 移除第一个元素
      */
     function deleteFromLeft() {
-        var ul = document.querySelector('#queue');
+        var lis = document.querySelectorAll('li');
         // 获取要删除的元素的值
-        var value = ul.firstChild.innerHTML;
+        var value = lis[0].innerHTML;
         // message存储确认confirm消息对话框的返回值
-        var message = confirm('是否删除该元素：' + value + '?');
-        if (message) {
-            ul.removeChild(ul.firstChild);
+        if (value === undefined) {
+            alert("请输入一个数字并点击插入");
+        }
+        else {
+            var message = confirm('是否删除该元素：' + value + '?');
+            if (message) {
+                lis[0].remove();
+            }
         }
     }
 
@@ -130,12 +149,17 @@
      * 移除最后一个元素
      */
     function deleteFromRight() {
-        var ul = document.querySelector('#queue');
+        var lis = document.querySelectorAll('li');
         // 获取要删除的元素的值
-        var value = ul.lastChild.innerHTML;
+        var value = lis[0].innerHTML;
         var message = confirm('是否删除该元素：' + value + '?');
-        if (message) {
-            ul.removeChild(ul.lastChild);
+        if(value === undefined) {
+            alert("请输入一个数字并点击插入");
+        }
+        else {
+            if (message) {
+                lis[lis.length-1].remove();
+            }
         }
     }
 
@@ -148,38 +172,48 @@
         var rightIntoBtn = document.getElementById('right-into-btn');
         var leftOutBtn = document.getElementById('left-out-btn');
         var rightOutBtn = document.getElementById('right-out-btn');
-        // var num = getInput();
-
+        var numInput = document.getElementById('num-input');
+        var ul = document.querySelector('#queue');
 
         // 绑定点击事件
         leftIntoBtn.addEventListener('click', function () {
-            // var num = getInpu()需要放在函数里面才能访问到
-            var num = getInput();
-            insertFromLeft(num);
+            // 先找到input框，再使用它的值value
+            // 输入合法则插入
+            if (isLegal(numInput.value)) {
+                insertFromLeft(numInput.value);
+            }
+            // 清空输入框，并获得焦点
+            numInput.value = '';
+            numInput.focus();
         });
 
         rightIntoBtn.addEventListener('click', function () {
-            var num = getInput();
-            insertFromRight(num);
+            if (isLegal(numInput.value)) {
+                insertFromRight(numInput.value);
+            }
+            numInput.value = '';
+            numInput.focus();
         });
 
         leftOutBtn.addEventListener('click', function () {
-            var num = getInput();
-            deleteFromLeft(num);
+            deleteFromLeft(numInput.value);
+            numInput.value = '';
+            numInput.focus();
+
         });
 
         rightOutBtn.addEventListener('click', function () {
-            var num = getInput();
-            deleteFromRight(num);
+            deleteFromRight(numInput.value);
+            numInput.value = '';
+            numInput.focus();
         });
 
-//        // 给所有li元素绑定单击事件
-//        var lis = document.querySelectorAll('li');
-//        for (var i = 0, len = lis.length; i < len; i++) {
-//            lis[i].addEventListener('click', function () {
-//                this.parentNode.removeChild(this);
-//            });
-//        }
+        // 可以在这里监听ul里的li点击事件，也可以在插入的时候直接监听
+        // ul.addEventListener('click', function (e) {
+        //    if(e.target.nodeName.toLocaleLowerCase() === 'li') {
+        //        ul.removeChild(e.target);
+        //    }
+        // });
     }
 
     init();
