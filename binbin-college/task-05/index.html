@@ -8,6 +8,13 @@
     <title>任务五：基础JavaScript练习（二）</title>
     <style>
 
+        body {
+            margin: 0;
+            padding:0;
+        }
+        div {
+            text-align: center;
+        }
         ul, li {
             list-style: none;
             margin: 0;
@@ -15,23 +22,32 @@
         }
 
         ul {
-            height: 500px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            height: 300px;
+            padding-top: 50px;
 
-            /*background: #3b3b3b;*/
+            background: #3b3b3b;
             /*overflow: hidden;*/
         }
 
         li {
             /*float: left;*/
             display: inline-block;
-            vertical-align: bottom;
             margin-top: 10px;
             margin-right: 10px;
             padding: 10px;
 
+
             color: #fff;
             background: #ff3f41;
+            /*vertical-align: bottom;*/
             cursor: pointer;
+
+            transition: height 2s;
+            transition-duration: 3s;
+            transition-delay: 1s;
         }
     </style>
 </head>
@@ -42,6 +58,7 @@
     <button id="right-into-btn">右侧入</button>
     <button id="left-out-btn">左侧出</button>
     <button id="right-out-btn">右侧出</button>
+    <button id="disorder">乱序</button>
     <!--<button id="sort">从大到小排序</button>-->
     <button id="sort">从小到大排序</button>
     <ul id="queue"></ul>
@@ -52,7 +69,7 @@
     // 2.队列展现方式直接用高度表示数字大小 ： 通过把数值赋予height,单位为百分比，动态设置li的高度样式
     // 3.队列元素数量最多限制为60个，当超过60个时，添加元素时alert出提示     if(lis.length > 60)置于插入的地方或
     // 调用插入的地方
-    // 4.对队列元素的值进行排序，冒泡排序后可视化打印出来 插入排序 把
+    // 4.对队列元素的值进行排序，冒泡排序后可视化打印出来 动态显示
 
     /**
      * isLegal
@@ -79,9 +96,11 @@
      */
     function insertFromLeft(num) {
         var li = document.createElement('li');
-        li.innerHTML = +num;
+        li.innerHTML = num;
+        // console.log(typeof num);  // string
         // 转为为数字
-        // num = +num;
+        num = +num;
+        // console.log(typeof num);  // number
         // 无论是num为10还是"10"，结果均为"10%"
         li.style.height = num + '%';
         // console.log(typeof num);
@@ -154,25 +173,55 @@
         }
     }
 
-
-    function bubbleSort(numlist) {
-        for(var i = 0, len = numlist.length-1; i < len; i++) {
-            for(var j = 0 ,len = numlist.length-1; j < len; j++) {
-                if(numlist[j].innerHTML > numlist[j+1].innerHTML) {
-                    var tmp1 = numlist[j+1].innerHTML;
-                    numlist[j+1].innerHTML= numlist[j].innerHTML;
-                    numlist[j].innerHTML = tmp1;
-
-                    // 高度也要排序
-                    var tmp2 = numlist[j+1].style.height;
-                    numlist[j+1].style.height= numlist[j].style.height;
-                    numlist[j].style.height = tmp2;
+    
+    function bubbleSort(numList) {
+        for (var i = 0, len = numList.length - 1; i < len; i++) {
+            for (var j = 0, len = numList.length - i - 1; j < len; j++) {
+                if ((+numList[j].innerHTML) > (+numList[j + 1].innerHTML)) {
+                    // console.log(typeof (+numList[0].innerHTML));
+                    var tmp1 = numList[j + 1].innerHTML;
+                    numList[j + 1].innerHTML = numList[j].innerHTML;
+                    numList[j].innerHTML = tmp1;
+                    // 高度也要交换
+                    var tmp2 = numList[j + 1].style.height;
+                    numList[j + 1].style.height = numList[j].style.height;
+                    numList[j].style.height = tmp2;
                 }
             }
         }
 
-        return numlist;
+        return numList;
     }
+
+    /**
+     * shuffle 洗牌、打乱一组数
+     * return
+     */
+    function shuffle(numList) {
+        var currentIndex = numList.length;
+        var temp1;
+        var temp2;
+        var randomIndex;
+        // 只要还保留有两个元素以上，继续洗牌
+        while (0 !== currentIndex) {
+            // 获得随机值索引
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -=1;
+
+            // 交换当前值与随机值
+            temp1 = numList[randomIndex].innerHTML;
+            numList[randomIndex].innerHTML = numList[currentIndex].innerHTML;
+            numList[currentIndex].innerHTML = temp1;
+
+            // 交换高度
+            temp2 = numList[randomIndex].style.height;
+            numList[randomIndex].style.height = numList[currentIndex].style.height;
+            numList[currentIndex].style.height = temp2;
+        }
+
+        return numList;
+    }
+    
 
     /**
      * init
@@ -184,14 +233,17 @@
         var leftOutBtn = document.getElementById('left-out-btn');
         var rightOutBtn = document.getElementById('right-out-btn');
         var sortBtn = document.getElementById('sort');
+        var disorderBtn = document.getElementById('disorder');
+        // 获取输入框
         var numInput = document.getElementById('num-input');
+        // 获取显示队列
         var ul = document.querySelector('#queue');
 
         // 绑定点击事件
         leftIntoBtn.addEventListener('click', function () {
             // 先找到input框，再使用它的值value
             // 输入合法则插入
-            if(ul.childNodes.length > 60) {
+            if (ul.childNodes.length > 60) {
                 alert("不能继续插入，队列元素最多为60个");
             }
             if (isLegal(numInput.value) && ul.childNodes.length <= 60) {
@@ -203,10 +255,10 @@
         });
 
         rightIntoBtn.addEventListener('click', function () {
-            if(ul.childNodes.length > 60) {
+            if (ul.childNodes.length > 60) {
                 alert("不能继续插入，队列元素最多为60个");
             }
-            if (isLegal(numInput.value ) && ul.childNodes.length <= 60) {
+            if (isLegal(numInput.value) && ul.childNodes.length <= 60) {
                 insertFromRight(numInput.value);
             }
             numInput.value = '';
@@ -224,6 +276,10 @@
             deleteFromRight(numInput.value);
             numInput.value = '';
             numInput.focus();
+        });
+
+        disorderBtn.addEventListener('click', function () {
+            ul.childNodes = shuffle(ul.childNodes);
         });
 
         sortBtn.addEventListener('click', function () {
