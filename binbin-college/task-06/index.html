@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>任务六：基础JavaScript练习（三）</title>
+    <style>
+
+        ul, li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            float: left;
+            margin-top: 10px;
+            margin-right: 10px;
+            padding: 10px;
+
+            color: #fff;
+            background: #ff3f41;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<!--<div>-->
+<!--<input id="num-input" type="text" placeholder="请输入数字">-->
+<textarea name="" id="num-input" cols="30" rows="10"
+          placeholder="允许一次批量输入多个内容，格式可以为数字、中文、英文等，可以通过用回车，逗号（全角半角均可），顿号，空格（全角半角、Tab等均可）等符号作为不同内容的间隔"></textarea>
+<button id="left-into-btn">左侧入</button>
+<button id="right-into-btn">右侧入</button>
+<button id="left-out-btn">左侧出</button>
+<button id="right-out-btn">右侧出</button>
+<input id="search-input" type="text" placeholder="请输入要查询的文本">
+<button id="search-btn">点击查询</button>
+<ul id="queue"></ul>
+<!--</div>-->
+<script>
+    // 解题思路：
+    // 需求1：允许一次批量输入多个内容，格式可以为数字、中文、英文等，可以通过用回车，逗号（全角半角均可），顿号，空格（全角半角、Tab等均可）等符号作为不同内容的间隔
+    // 解决：
+    // 1.把输入的值包括分隔符保存到一个字符串变量中，正则表达式匹配分隔符，返回除分隔符外的元素组成的数组
+    // 正则表达式 + 字符串 split()
+    // 2.把数组中的元素逐个添加到新创建的标签中显示出来forEach()
+
+    // 需求2：增加一个查询文本输入框，和一个查询按钮，当点击查询时，将查询词在各个元素内容中做模糊匹配，将匹配到的内容进行特殊标识，如文字颜色等。举例，内容中有abcd，查询词为ab或bc，则该内容需要标识
+    // 解决:
+    // 1.读取li元素列表的值到一个数组，使用字符串模式匹配 把输入的值传入正则表达式构造函数
+        // 输入的值转为正则表达式，再用regexObj.test(str)，找到匹配到的所有索引，再映射到原来li元素列表
+    // 2.映射到的li元素视觉改变如颜色改变，当重新点击按钮的时候，样式重置
+
+    function search(array,str) {
+        array.forEach(function (element, index, array) {
+            // str为用户要查询的值
+            var re = new RegExp(str, 'g');
+
+            // 匹配到的内容则改变背景颜色，没有匹配到的则为默认颜色
+            if (re.test(element.innerHTML)) {
+                element.style.background = '#49b310';
+                element.style.border = '1px solid #ccc';
+                // console.log(element.innerHTML);
+            } else {
+                element.style.background = '#ff3f41';
+            }
+        });
+    }
+
+    /**
+     * isLegal
+     * 验证输入的数值是否合乎规范、要求
+     * @param [Number] 用户传入的值
+     * @return [Boolean] 返回ture或false
+     */
+    function isLegal(num) {
+        if (num === '' || num === null) {
+            alert("不能为空");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * insertToLeft
+     * 把输入的数字插入到队列的左边
+     * @param [Number] num 用户输入的数字
+     */
+    function insertFromLeft(num) {
+        var li = document.createElement('li');
+        li.innerHTML = num;
+        li.addEventListener('click', function () {
+            this.parentNode.removeChild(this);
+        });
+        // 定位父节点
+        var ul = document.querySelector('#queue');
+        // 插入到头部
+        ul.insertBefore(li, ul.firstChild);
+    }
+
+    /**
+     * insertToLeft
+     * 把输入的数字插入到队列的右边
+     * @param [Number] num 用户输入的数字
+     */
+    function insertFromRight(num) {
+        var li = document.createElement('li');
+        li.innerHTML = num;
+        // 给li标签绑定单击清除事件
+        li.addEventListener('click', function () {
+            this.parentNode.removeChild(this);
+        });
+        // 定位父节点
+        var ul = document.querySelector('#queue');
+        // 插入到尾部
+        ul.insertBefore(li, null);
+
+    }
+
+    /**
+     * deleteFormLeft
+     * 移除第一个元素
+     */
+    function deleteFromLeft() {
+        var lis = document.querySelectorAll('li');
+        // 获取要删除的元素的值
+        var value = lis[0].innerHTML;
+        // message存储确认confirm消息对话框的返回值
+        if (value === undefined) {
+            alert("请输入一个数字并点击插入");
+        }
+        else {
+            var message = confirm('是否删除该元素：' + value + '?');
+            if (message) {
+                lis[0].remove();
+            }
+        }
+    }
+
+    /**
+     * deleteFormRight
+     * 移除最后一个元素
+     */
+    function deleteFromRight() {
+        var lis = document.querySelectorAll('li');
+        // 获取要删除的元素的值
+        var value = lis[0].innerHTML;
+        var message = confirm('是否删除该元素：' + value + '?');
+        if (value === undefined) {
+            alert("请输入一个数字并点击插入");
+        }
+        else {
+            if (message) {
+                lis[lis.length - 1].remove();
+            }
+        }
+    }
+
+    /**
+     * init
+     * 给插入、删除等按钮绑定点击事件，触发插入、删除操作
+     */
+    function init() {
+        var leftIntoBtn = document.getElementById('left-into-btn');
+        var rightIntoBtn = document.getElementById('right-into-btn');
+        var leftOutBtn = document.getElementById('left-out-btn');
+        var rightOutBtn = document.getElementById('right-out-btn');
+        var searchBtn = document.getElementById('search-btn');
+
+        var numInput = document.getElementById('num-input');
+        var searchInput = document.getElementById('search-input');
+        var ul = document.querySelector('#queue');
+
+        // 绑定点击事件
+        // 左插入
+        leftIntoBtn.addEventListener('click', function () {
+            // console.log(numInput.value);
+            // 处理以空格开头，再输入值的情况trim
+            var trimmedNumInput = numInput.value.trim();
+            // 正则表达式，去除分隔符后取得输入框的值
+            // +为匹配一个以上分隔符
+            var re = /[-,，、.\s]+/g;
+            var result = re[Symbol.split](trimmedNumInput);
+            // result.reverse();
+
+            // 输入合法则插入
+            if (isLegal(numInput.value)) {
+                result.forEach(function (element, index, result) {
+                    // 从末尾元素开始插入，才能实现左侧入时，e s 输出 为 e s, 而不是 s e。这里反转数组
+                    insertFromLeft(result[result.length - index - 1]);
+                    // 也可以在前面使用reverse()反转数组
+                    // insertFromLeft(element);
+                });
+
+            }
+            // 清空输入框，并获得焦点
+            numInput.value = '';
+            numInput.focus();
+        });
+
+        // 右插入
+        rightIntoBtn.addEventListener('click', function () {
+            // 处理以空格开头，再输入值的情况trim
+            var trimmedNumInput = numInput.value.trim();
+            // 正则表达式，去除分隔符后取得输入框的值
+            // \s表示空白符
+            var re = /[-,，、.\s]+/g;
+            var result = re[Symbol.split](trimmedNumInput);
+
+            // 输入合法则插入
+            if (isLegal(numInput.value)) {
+                result.forEach(function (element, index, result) {
+                    insertFromRight(element);
+                });
+            }
+            numInput.value = '';
+            numInput.focus();
+        });
+
+        // 左移出
+        leftOutBtn.addEventListener('click', function () {
+            deleteFromLeft(numInput.value);
+            numInput.value = '';
+            numInput.focus();
+
+        });
+
+        // 右移出
+        rightOutBtn.addEventListener('click', function () {
+            deleteFromRight(numInput.value);
+            numInput.value = '';
+            numInput.focus();
+        });
+
+        // 查询
+        searchBtn.addEventListener('click', function () {
+            var str = searchInput.value;
+            var trimmedStr = str.trim();
+            // console.log(ul.childNodes[0].innerHTML);
+            search(ul.childNodes, trimmedStr);
+        });
+    }
+
+    init();
+
+</script>
+</body>
+</html>
