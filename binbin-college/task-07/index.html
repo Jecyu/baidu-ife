@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>任务七：JavaScript二叉树（一）</title>
+</head>
+<style>
+    #div1 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 200px;
+        border: 4px solid #3c3c3c;
+    }
+
+    .box > .box {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+
+        width: 45%;
+        height: 70%;
+        border: 4px solid #3c3c3c;
+    }
+
+    .box > .box > .box {
+        width: 40%;
+        height: 70%;
+    }
+
+    .box > .box > .box .box {
+        width: 30%;
+        height: 30%;
+    }
+
+    .btn-groups {
+        display: flex;
+        justify-content: space-around;
+
+        margin-top: 20px;
+    }
+
+    .btn {
+        width: 10%;
+    }
+
+</style>
+<body>
+<div id="div1" class="box">
+    <div id="div2" class="box">
+        <div id="div4" class="box">
+            <div id="div8" class="box"></div>
+            <div id="div9" class="box"></div>
+        </div>
+        <div id="div5" class="box">
+            <div id="div10" class="box"></div>
+            <div id="div11" class="box"></div>
+        </div>
+    </div>
+    <div id="div3" class="box">
+        <div id="div6" class="box">
+            <div id="div12" class="box"></div>
+            <div id="div13" class="box"></div>
+        </div>
+        <div id="div7" class="box">
+            <div id="div14" class="box"></div>
+            <div id="div15" class="box"></div>
+        </div>
+    </div>
+</div>
+<div class="btn-groups">
+    <button id="pre-order" class="btn">前序遍历</button>
+    <button id="in-order" class="btn">中序遍历</button>
+    <button id="post-order" class="btn">后序遍历</button>
+</div>
+<script type="text/javascript">
+    // 任务需求：
+    // • 提供一个按钮，显示开始遍历，点击后，以动画的形式呈现遍历的过程
+    // • 二叉树的遍历算法和方式自定，前序中序后序皆可，但推荐可以提供多种算法的展示（增加多个按钮，每个按钮对应不同的算法）
+    // • 当前被遍历到的节点做一个特殊显示（比如不同的颜色）实时渲染
+    // • 每隔一段时间（500ms，1s等时间自定）再遍历下一个节点   使用window对象 定时器
+
+    // 解题思路(tasking)：创建满二叉树→遍历二叉树→映射到DOM元素
+    // 1.用节点函数创建div元素，映射到二叉树里
+    // 1.1 如何用把div元素插入？使用id值作为连接
+    // 1.2
+    // 2.进行前序/中序/后序遍历的时候，遍历到的节点push()一个数组中state。
+    // 3.依次以一定的时间间隔读取state数组的每一个数组元素，把对应的DOM元素节点标识（设置背景颜色，每个box的z-index都不一样，或者是
+    // if遍历到的为蓝色、else遍历过后为白色）
+    // 4.间隙调用渲染函数setInterval(draw, 500) 遍历完自动清除间隙器
+
+    //    function binaryTree() {
+    //
+    //    }
+    // 新建节点
+    function Node(data) {
+        this.data = data;
+        this.parent = null;
+        this.children = [];
+    }
+
+
+    function Tree(data) {
+        var node = new Node(data);
+        // 根节点
+        this.root = node;
+    }
+
+    // 先序遍历（根-左-右）
+    Tree.prototype.preOrderTraverse = function (callback) {
+        // this is a recurse and immediately-invoking function
+        (function recurse(currentNode) {
+            // step 2 callback输出当前节点
+            callback(currentNode);
+
+            // step 3 遍历当前节点的孩子节点
+            for (var i = 0, len = currentNode.children.length; i < len; i++) {
+                // step 4 递归调用当前节点的孩子节点
+                recurse(currentNode.children[i]);
+            }
+
+            // step 1 根节点作为参数传入
+        })(this.root);
+    };
+
+    // 中序序遍历（左-根-右）
+    Tree.prototype.inOrderTraverse = function (callback) {
+        // this is a recurse and immediately-invoking function
+        (function recurse(currentNode) {
+            // step 2 遍历当前节点的孩子节点  访问左孩子
+            for (var i = 0, len = currentNode.children.length; i < len - 1; i++) {
+                // step 3 递归调用当前节点的孩子节点
+                recurse(currentNode.children[i]);
+            }
+
+            // step 4 callback输出当前节点
+            callback(currentNode);
+
+            // step 5 访问右孩子
+            for (var i = 1, len = currentNode.children.length; i < len; i++) {
+                // step 6 递归调用当前节点的孩子节点
+                recurse(currentNode.children[i]);
+            }
+            // step 1 根节点作为参数传入
+        })(this.root);
+    };
+
+    // 后序遍历（左-右-根）
+    Tree.prototype.postOrderTraverse = function (callback) {
+        // this is a recurse and immediately-invoking function
+        (function recurse(currentNode) {
+            // step 2 遍历当前节点的孩子节点
+            for (var i = 0, len = currentNode.children.length; i < len; i++) {
+                // step 3 递归调用当前节点的孩子节点
+                recurse(currentNode.children[i]);
+            }
+
+            // step 4 callback输出当前节点
+            callback(currentNode);
+
+            // step 1 根节点作为参数传入
+        })(this.root);
+    };
+
+    /**
+     * contains 查找一个值
+     * @param callback  回调函数
+     * @param traversal 遍历的方式
+     */
+    Tree.prototype.contains = function (callback, traversal) {
+        traversal.call(this, callback);
+    };
+
+    /**
+     * add 向指定节点添加节点
+     * @param data 当前要插入的值
+     * @param toData 要插入值的参考点
+     * @param traverse 遍历的方式
+     */
+    Tree.prototype.add = function (data, toData, traversal) {
+        var child = new Node(data);
+        // parent用来指向匹配toData的值的树中任意节点
+        var parent = null;
+        var callback = function (node) {
+            if (node.data === toData) {
+                parent = node;
+            }
+        };
+
+        this.contains(callback, traversal);
+
+        // 如果找到匹配的节点
+        if (parent) {
+            parent.children.push(child);
+            child.parent = parent;
+        } else {
+            throw new Error('Cannot add node to a non-existent parent');
+        }
+    };
+
+    function init() {
+//        var nodes = [];
+//        for (var i = 1; i <= 15; i++) {
+//            nodes.push(i);
+//        }
+
+        // 新建一棵树实例
+        var tree = new Tree('1');
+        tree.add('2', '1', tree.postOrderTraverse);
+        tree.add('3', '1', tree.postOrderTraverse);
+        tree.add('4', '2', tree.postOrderTraverse);
+        tree.add('5', '2', tree.postOrderTraverse);
+        tree.add('6', '3', tree.postOrderTraverse);
+        tree.add('7', '3', tree.postOrderTraverse);
+        tree.add('8', '4', tree.postOrderTraverse);
+        tree.add('9', '4', tree.postOrderTraverse);
+        tree.add('10', '5', tree.postOrderTraverse);
+        tree.add('11', '5', tree.postOrderTraverse);
+        tree.add('12', '6', tree.postOrderTraverse);
+        tree.add('13', '6', tree.postOrderTraverse);
+        tree.add('14', '7', tree.postOrderTraverse);
+        tree.add('15', '7', tree.postOrderTraverse);
+
+        // 记录状态的数组
+        var boxes = [].slice.call(document.querySelectorAll('.box'), 0);
+        var state = [];
+        var intervalId = null;
+        // 渲染DOM函数
+        var draw = function () {
+            var s;
+            // 删除数组第一个元素，并返回该元素,作为id选择
+            s = 'div' + state.shift();
+            // 当数组为空时，清除定时器
+            // 加上s === 'divundefined'为的是当遍历完最后一个节点的时候应该把元素的背景恢复为白色
+            if (!state.length && s === 'divundefined') {
+                clearInterval(intervalId);
+            }
+
+            // 超时调用逻辑
+            // if (state.length || s !== 'divundefined') {
+            //     setTimeout(draw, 800);
+            // }
+            console.log(s);
+            boxes.forEach(function (element, index) {
+                if (element.id === s) {
+                    element.style.background = 'aquamarine';
+                }
+                else {
+                    element.style.background = 'white';
+                }
+            });
+
+        };
+        var preOrderBtn = document.querySelector('#pre-order');
+        var inOrderBtn = document.querySelector('#in-order');
+        var postOrderBtn = document.querySelector('#post-order');
+
+        preOrderBtn.addEventListener('click', preOrderTraversal, false);
+        inOrderBtn.addEventListener('click', inOrderTraversal, false);
+        postOrderBtn.addEventListener('click', postOrderTraversal, false);
+
+        // 前序遍历接口（根-左-右）
+        function preOrderTraversal() {
+            if (!state.length) {
+                console.clear();
+                tree.preOrderTraverse(function(node) {
+                    state.push(node.data);
+                });
+                intervalId = setInterval(draw, 800);
+            }
+        }
+
+        // 中序遍历接口（左-根-右）
+        function inOrderTraversal() {
+            if (!state.length) {
+                // 清除之前的控制台数据
+                console.clear();
+                tree.inOrderTraverse(function (node) {
+                    // console.log(node.data);
+                    state.push(node.data);
+                });
+                // 定时器id
+                intervalId = setInterval(draw, 800);
+            }
+        }
+
+        // 后序遍历接口（左-右-根）
+        function postOrderTraversal() {
+            // 当点击前序遍历按钮的时候，必须要等该遍历完成，才可以继续使用其他方式遍历，
+            // 因此这里使用判断当前数组为空时，证明之前的遍历完成，可以开启当前的遍历模式
+            if (!state.length) {
+                console.clear();
+                tree.postOrderTraverse(function (node) {
+                    // console.log(node.data);
+                    state.push(node.data);
+                });
+                // 定时器id
+                intervalId = setInterval(draw, 800);
+
+                // 因为后一个间歇调用可能会在前一个间歇调用结束之前启动，因此使用超时调用来代替间歇调用
+                // 而且不用设置跟踪超时调用ID
+                // 可以使用超时调用代替间歇调用，需要在这里调用draw函数，并更改draw内部响应的逻辑判断。
+                // draw();
+            }
+        }
+    }
+
+    init();
+</script>
+</body>
+</html>
