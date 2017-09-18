@@ -86,13 +86,12 @@
     // • 每隔一段时间（500ms，1s等时间自定）再遍历下一个节点   使用window对象 定时器
 
     // 解题思路(tasking)：创建满二叉树→遍历二叉树→映射到DOM元素
-    // 1.用节点函数创建div元素，映射到二叉树里
-    // 1.1 如何用把div元素插入？使用id值作为连接
-    // 1.2
+    // 1.用二叉树添加函数创建二叉树
     // 2.进行前序/中序/后序遍历的时候，遍历到的节点push()一个数组中state。
-    // 3.依次以一定的时间间隔读取state数组的每一个数组元素，把对应的DOM元素节点标识（设置背景颜色，每个box的z-index都不一样，或者是
-    // if遍历到的为蓝色、else遍历过后为白色）
-    // 4.间隙调用渲染函数setInterval(draw, 500) 遍历完自动清除间隙器
+    // 3.依次以一定的时间间隔读取state数组的每一个数组元素，把对应的DOM元素节点标识
+         //（设置背景颜色，每个box的z-index都不一样，或者是if遍历到的为蓝色、else遍历过后为白色）
+    // 4.树中的节点data与DOM中的id对应
+    // 5.间隙调用渲染函数setInterval(draw, 500) 遍历完自动清除间隙器
 
     //    function binaryTree() {
     //
@@ -204,10 +203,6 @@
     };
 
     function init() {
-//        var nodes = [];
-//        for (var i = 1; i <= 15; i++) {
-//            nodes.push(i);
-//        }
 
         // 新建一棵树实例
         var tree = new Tree('1');
@@ -236,19 +231,24 @@
             // 删除数组第一个元素，并返回该元素,作为id选择
             s = 'div' + state.shift();
             // 当数组为空时，清除定时器
-            // 加上s === 'divundefined'为的是当遍历完最后一个节点的时候应该把元素的背景恢复为白色
+            // 加上s === 'divundefined'为的是当遍历完最后一个节点的时候应该把元素的背景恢复为白色，遍历最后一个节点时再
+            // 调用多一次draw函数
             if (!state.length && s === 'divundefined') {
                 clearInterval(intervalId);
+            }
+
+            if (s !== 'divundefined') {
+                console.log(s);
             }
 
             // 超时调用逻辑
             // if (state.length || s !== 'divundefined') {
             //     setTimeout(draw, 800);
             // }
-            console.log(s);
             boxes.forEach(function (element, index) {
                 if (element.id === s) {
                     element.style.background = 'aquamarine';
+                    // 这里可以直接添加类element.setAttribute("class", "blue");
                 }
                 else {
                     element.style.background = 'white';
