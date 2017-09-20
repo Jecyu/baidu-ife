@@ -7,98 +7,45 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>任务八：JavaScript和树（二）</title>
 </head>
-<style type="text/css">
-    #myComputer {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        align-items: center;
-        height: 200px;
-        border: 2px solid #3c3c3c;
-    }
-
-    #myComputer > div:last-child {
-        width: 10%;
-    }
-
-    /* 文本的处理 */
-    .text {
-        align-self: flex-start;
-        max-width: 100%;
-    }
-
-    .box > .box {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-
-        height: 70%;
-        margin: 1px;
-        border: 2px solid #3c3c3c;
-    }
-
-    .box > .box > .box {
-        /*height: 70%;*/
-    }
-
-    .box > .box > .box .box {
-        /*height: 30%;*/
-    }
-
-    .btn-groups {
-        display: flex;
-        justify-content: center;
-
-        margin-top: 20px;
-    }
-
-    .btn {
-        width: 10%;
-    }
-
-    .container {
-        text-align: center;
-    }
-</style>
+<link rel="stylesheet" href="css/index.css">
 <body>
 <div class="container">
     <div id="myComputer" class="box">
-        <p class="text">myComputer</p>
-        <div id="C:" class="box">
-            <p class="text">C:</p>
-            <div id="Program-Files" class="box">
-                <p class="text">Program-Files</p>
-                <div id="Adobe" class="box">Adobe</div>
-                <div id="AutoDesk" class="box">AutoDesk</div>
-                <div id="Canon" class="box">Canon</div>
-                <div id="Common-Files" class="box">Common-Files</div>
+        <span class="text">myComputer</span>
+        <div class="box">
+            <span class="text">C:</span>
+            <div class="box">
+                <span class="text">Program-Files</span>
+                <div class="box"><span>Adobe</span></div>
+                <div class="box"><span>AutoDesk</span></div>
+                <div class="box"><span>Canon</span></div>
+                <div class="box"><span>Common-Files</span></div>
             </div>
-            <div id="Users" class="box">Users</div>
-            <div id="Windows" class="box">
-                <p class="text">Windows</p>
-                <div id="System32" class="box">System32</div>
-                <div id="Fonts" class="box">Fonts</div>
+            <div class="box"><span>Users</span></div>
+            <div class="box">
+                <span class="text">Windows</span>
+                <div class="box"><span>System32</span></div>
+                <div class="box"><span>Fonts</span></div>
             </div>
         </div>
-        <div id="D:" class="box">
-            <p class="text">D:</p>
-            <div id="mySubject" class="box">
-                <p class="text">mySubject</p>
-                <div id="Computer-Network" class="box">Computer-Network</div>
-                <div id="C4D" class="box">C4D</div>
-                <div id="front-end-development" class="box">front-end-development</div>
+        <div class="box">
+            <span class="text">D:</span>
+            <div class="box">
+                <span class="text">mySubject</span>
+                <div class="box"><span>Computer-Network</span></div>
+                <div class="box"><span>C4D</span></div>
+                <div class="box"><span>front-end-development</span></div>
             </div>
-            <div id="soft" class="box">
-                <p class="text">soft</p>
-                <div id="nodeJs" class="box">
-                    <p class="text">nodeJs</p>
-                    <div id="node.exe" class="box">node.exe</div>
+            <div class="box">
+                <span class="text">soft</span>
+                <div class="box">
+                    <span class="text">nodeJs</span>
+                    <div class="box"><span>node.exe</span></div>
                 </div>
-                <div id="PhotoShop" class="box">PhotoShop</div>
+                <div class="box"><span>PhotoShop</span></div>
             </div>
         </div>
-        <div id="E:" class="box"><p class="text">E:</p></div>
+        <div class="box"><span class="text">E:</span></div>
     </div>
     <div class="btn-groups">
         <button id="dfs-btn" class="btn">深度优先遍历</button>
@@ -118,7 +65,7 @@
     // 解题思路：
     // 1.使用树add，逐步添加数据建立对应的多叉树DOM模型
     // 2.进行深度优先遍历和广度优先遍历两种遍历方式的过程中，遍历到的节点push()到一个状态数组里state
-    // 3.使用超时调用或间歇调用数组里的元素，树中的节点元素data与dom元素的id或者是文本绑定，找到对应的则指定标识
+    // 3.使用超时调用或间歇调用数组里的元素，树中的节点元素data与dom元素的id或者是span标签文本绑定，找到对应的则指定标识
     // 4.查询使用查找contains函数，匹对方法使用正则表达式模糊查询，字符串模式等，找到取得当前节点data，标识对应的节点
         // 4.1 进行广度遍历查找，如果用户输入的字符串等于遍历到的节点data，则停止当前遍历，并标识当前节点颜色
             // 或者一样使用state数组记录所有节点，把匹配到的节点后面的元素剔除掉，然后重新展现动画
@@ -167,7 +114,10 @@
         return this.storage.shift();
     };
 
-    // 广度优先遍历
+    /**
+     * 广度优先遍历
+     * @param {function}callback 回调函数
+     */
     Tree.prototype.traverseBFS = function (callback) {
         // create an instance of Queue
         var queue = new Queue();
@@ -203,7 +153,7 @@
      * add 向指定节点添加节点
      * @param data 当前要插入的值
      * @param toData 要插入值的参考点
-     * @param Traversal 遍历的方式
+     * @param traversal 遍历的方式
      */
     Tree.prototype.add = function (data, toData, traversal) {
         var child = new Node(data);
@@ -227,7 +177,7 @@
     };
 
     function init() {
-
+        // 直接读取span里的文本
         var tree = new Tree('myComputer');
         tree.add('C:', 'myComputer', tree.traverseDFS);
         tree.add('D:', 'myComputer', tree.traverseDFS);
@@ -258,11 +208,13 @@
         tree.add('node.exe', 'nodeJs', tree.traverseDFS);
 
         // 读取对应的DOM元素
-        var boxes = [].slice.call(document.querySelectorAll(".box"), 0);
+        var spans = [].slice.call(document.getElementsByTagName("span"), 0);
         // 记录状态的数组
         var state = [];
         // 定义一个时间，作为查找遍历后，才出现查找结果的定时器
         var time = 0;
+        // 遍历一个节点所花费的时间
+        const TIME_IN_A_NODE = 500;
 
         // 渲染DOM函数
         function render() {
@@ -273,15 +225,15 @@
             // 遍历最后一个节点时再调用多一次draw函数此时 s = []，调用完这一次后继续s = state.shift() 此时s = undefined
             if (state.length || s !== undefined) {
                 console.log(s);
-                setTimeout(render, 800);
+                setTimeout(render, TIME_IN_A_NODE);
             }
 
-            boxes.forEach(function (element, index) {
-                if (element.id === s) {
-                    element.style.background = 'aquamarine';
+            spans.forEach(function (element, index) {
+                if (element.innerHTML === s) {
+                    element.parentNode.style.background = 'aquamarine';
                 }
                 else {
-                    element.style.background = 'white';
+                    element.parentNode.style.background = 'white';
                 }
             });
             return state;
@@ -356,22 +308,22 @@
                     state = state.slice(0, endPos + 1);
                     console.log(state);
                     // 更新时间 加2为了在超时调完之后，才显示完结果
-                    time = (endPos + 2) * 800;
+                    time = (endPos + 2) * TIME_IN_A_NODE;
 
                     render();
                     // 当查找完成后才显示该信息
                     setTimeout(function () {
                         output.innerHTML = '找到了' + userInput.value ;
                         // 标识当前节点
-                        boxes.forEach(function (element, index) {
-                            if (element.id === searchNode.data) {
-                                element.style.background = "yellow";
+                        spans.forEach(function (element, index) {
+                            if (element.innerHTML === searchNode.data) {
+                                element.parentNode.style.background = "yellow";
                             }
                         });
                     },time);
                 }
                 else {
-                    time = state.length * 800;
+                    time = state.length * TIME_IN_A_NODE;
                     render();
                     // 当查找完成后才显示该信息
                     setTimeout(function () {

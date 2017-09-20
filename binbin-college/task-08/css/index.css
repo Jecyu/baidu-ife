@@ -1,0 +1,52 @@
+#myComputer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 200px;
+    border: 2px solid #3c3c3c;
+}
+
+#myComputer > div:last-child {
+    width: 10%;
+}
+
+/* 文本的处理 */
+.text {
+    align-self: flex-start;
+    max-width: 100%;
+}
+
+.box > .box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 70%;
+    margin: 1px;
+    border: 2px solid #3c3c3c;
+}
+
+.box > .box > .box {
+    /*height: 70%;*/
+}
+
+.box > .box > .box .box {
+    /*height: 30%;*/
+}
+
+.btn-groups {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 20px;
+}
+
+.btn {
+    width: 10%;
+}
+
+.container {
+    text-align: center;
+}
