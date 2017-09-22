@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>任务九：javascript和树（三）</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div class="container">
+    <div id="myComputer" class="box">
+        <span class="text">myComputer</span>
+        <div class="box">
+            <span class="text">C:</span>
+            <div class="box">
+                <span class="text">Program-Files</span>
+                <div class="box"><span>Adobe</span></div>
+                <div class="box"><span>AutoDesk</span></div>
+                <div class="box"><span>Canon</span></div>
+                <div class="box"><span>Common-Files</span></div>
+            </div>
+            <div class="box"><span>Users</span></div>
+            <div class="box">
+                <span class="text">Windows</span>
+                <div class="box"><span>System32</span></div>
+                <div class="box"><span>Fonts</span></div>
+            </div>
+        </div>
+        <div class="box">
+            <span class="text">D:</span>
+            <div class="box">
+                <span class="text">mySubject</span>
+                <div class="box"><span>Computer-Network</span></div>
+                <div class="box"><span>C4D</span></div>
+                <div class="box"><span>front-end-development</span></div>
+            </div>
+            <div class="box">
+                <span class="text">soft</span>
+                <div class="box">
+                    <span class="text">nodeJs</span>
+                    <div class="box"><span>node.exe</span></div>
+                </div>
+                <div class="box"><span>PhotoShop</span></div>
+            </div>
+        </div>
+        <div class="box"><span class="text">E:</span></div>
+    </div>
+    <div class="btn-groups">
+        <button id="dfs-btn" class="btn">深度优先遍历</button>
+        <button id="bfs-btn" class="btn">广度优先遍历</button>
+        <input id="search-input" type="text">
+        <button id="search-btn" class="btn">查询</button>
+    </div>
+    <p id="output">请输入查找的值后，点击查询按钮</p>
+    <div class="btn-groups">
+        <input id="add-input" type="text">
+        <button id="add-btn">添加</button>
+        <button id="del-btn">删除</button>
+    </div>
+</div>
+<script type="text/javascript">
+    // • 基于任务八，添加节点的选择、增加与删除的功能
+    // • 点击某个节点元素，则该节点元素呈现一个特殊被选中的样式
+    // • 增加一个删除按钮，当选中某个节点元素后，点击删除按钮，则将该节点及其所有子节点删除掉
+    // • 增加一个输入框及一个“添加”按钮当选中某个节点元素后，点击增加按钮，则在该节点下增加一个子节点，节点内容为输入框中内容，插入在其子节点的最后一个位置
+
+    // 解题思路：（要注意获取DOM元素的状态随添加、删除节点的变化）
+    // 1.实现点击选中功能，获取对应的DOM元素，绑定事件监听，使用this对象或event.target来设置样式
+    // 2.在选中的基础上，
+    // 2.1 实现删除功能，删除DOM元素removeChild() 或remove()，同时把节点从树中删除remove(data, fromData, traversal)
+    // 2.2 实现添加功能，获取输入框里的值（需要检查合法性,合法才进行添加）添加DOM元素appendChild()，同时使用tree.add(data, toData, traversal)把该节点加入树中
+    // 目标： 函数式编程
+    // 1.一个函数只完成一个功能
+    // 2.多组合
+    // 3.减少状态的依赖
+
+
+    // 新建节点
+    function Node(data) {
+        this.data = data;
+        this.parent = null;
+        this.children = [];
+    }
+
+    function Tree(data) {
+        var node = new Node(data);
+        // 根节点
+        this.root = node;
+    }
+
+    // 深度优先遍历
+    Tree.prototype.traverseDFS = function (callback) {
+        // this is a recurse and immediately-invoking function
+        (function recurse(currentNode) {
+            // step 2 遍历当前节点的所有孩子节点
+            for (var i = 0, len = currentNode.children.length; i < len; i++) {
+                // step 3 递归调用当前节点的孩子节点
+                recurse(currentNode.children[i]);
+            }
+            // step 4 callback回调输出当前节点
+            callback(currentNode);
+            // step 1 传入根节点
+        })(this.root);
+    };
+
+    // 定义一个队列
+    function Queue() {
+        this.storage = [];
+    }
+    Queue.prototype.enqueue = function (node) {
+        this.storage.push(node);
+    };
+    Queue.prototype.dequeue = function () {
+        // 返回第一个元素
+        return this.storage.shift();
+    };
+
+    /**
+     * 广度优先遍历
+     * @param {function}callback 回调函数
+     */
+    Tree.prototype.traverseBFS = function (callback) {
+        // create an instance of Queue
+        var queue = new Queue();
+        // var queue = [];
+        // 入列,把根节点作为第一个队员
+        queue.enqueue(this.root);
+        // 出列，把第一个队员（根节点）作为当前节点
+        var currentNode = queue.dequeue();
+        // 循环把当前节点的孩子节点入列
+        while (currentNode) {
+            // use a loop to iterate on the children of currentNode
+            for (var i = 0, len = currentNode.children.length; i < len; i++) {
+                queue.enqueue(currentNode.children[i]);
+            }
+            // 输出当前节点
+            callback(currentNode);
+            // 取得更新后的队列第一个队员作为当前节点
+            // reassign currentNode to the node being removed from the queue
+            currentNode = queue.dequeue();
+        }
+    };
+
+    /**
+     * contains 查找一个值
+     * @param callback  回调函数
+     * @param traversal 遍历的方式
+     */
+    Tree.prototype.contains = function (callback, traversal) {
+        traversal.call(this, callback);
+    };
+
+    /**
+     * add 向指定节点添加节点
+     * @param data 当前要插入的值
+     * @param toData 要插入值的父节点值
+     * @param traversal 遍历的方式
+     */
+    Tree.prototype.add = function (data, toData, traversal) {
+        var child = new Node(data);
+        // parent用来指向匹配toData的值的树中任意节点
+        var parent = null;
+        var callback = function (node) {
+            if (node.data === toData) {
+                parent = node;
+            }
+        };
+
+        this.contains(callback, traversal);
+
+        // 如果找到匹配的节点
+        if (parent) {
+            parent.children.push(child);
+            child.parent = parent;
+        } else {
+            throw new Error('Cannot add node to a non-existent parent');
+        }
+    };
+
+    /**
+     * remove 实现从树中移除指定节点以及它的所有孩子节点
+     * @param data 要删除的值
+     * @param fromData 要删除值的父节点值
+     * @param traversal 遍历的方式
+     */
+    Tree.prototype.remove = function (data, fromData, traversal) {
+        var tree = this;
+        // 指向匹配到fromData的值的节点
+        var parent = null;
+        // 记录节点的索引位置
+        var index;
+        var childToRemove = null;
+
+        var callback = function (node) {
+            if (node.data === fromData) {
+                parent = node;
+                // console.log(parent.data);
+            }
+        };
+
+        // 查找当前节点
+        this.contains(callback, traversal);
+
+        if (parent) {
+            // 返回匹配到的节点索引
+            index = findIndex(parent.children, data);
+
+            // 找不到则抛出错误
+            if (index === undefined) {
+                throw new Error('Node to remove does not exit.');
+            }
+            // 找到则把该孩子节点移除
+            else {
+                childToRemove = parent.children.splice(index, 1);
+            }
+        }
+        // 若父节点不存在，则抛出错误
+        else {
+            // 直接把当前节点从树中移除
+            // data.children = null;
+            alert('该节点无法删除！');
+            throw new Error('Parent does not exist.');
+        }
+
+        return childToRemove;
+    };
+
+    /**
+     * findIndex 返回匹配到的孩子节点的索引
+     * @param arr
+     * @param data
+     * @return {*}
+     */
+    function findIndex(arr, data) {
+        var index;
+
+        for (var i = 0, len = arr.length; i < len; i++) {
+            if (arr[i].data === data) {
+                index = i;
+            }
+        }
+
+        return index;
+    }
+
+    function init() {
+
+        var tree = new Tree('myComputer');
+        tree.add('C:', 'myComputer', tree.traverseDFS);
+        tree.add('D:', 'myComputer', tree.traverseDFS);
+        tree.add('E:', 'myComputer', tree.traverseDFS);
+
+        tree.add('Program-Files', 'C:', tree.traverseDFS);
+        tree.add('Users', 'C:', tree.traverseDFS);
+        tree.add('Windows', 'C:', tree.traverseDFS);
+
+        tree.add('mySubject', 'D:', tree.traverseDFS);
+        tree.add('soft', 'D:', tree.traverseDFS);
+
+        tree.add('Adobe', 'Program-Files', tree.traverseDFS);
+        tree.add('AutoDesk', 'Program-Files', tree.traverseDFS);
+        tree.add('Canon', 'Program-Files', tree.traverseDFS);
+        tree.add('Common-Files', 'Program-Files', tree.traverseDFS);
+
+        tree.add('System32', 'Windows', tree.traverseDFS);
+        tree.add('Fonts', 'Windows', tree.traverseDFS);
+
+        tree.add('Computer-Network', 'mySubject', tree.traverseDFS);
+        tree.add('C4D', 'mySubject', tree.traverseDFS);
+        tree.add('front-end-development', 'mySubject', tree.traverseDFS);
+
+        tree.add('nodeJs', 'soft', tree.traverseDFS);
+        tree.add('PhotoShop', 'soft', tree.traverseDFS);
+
+        tree.add('node.exe', 'nodeJs', tree.traverseDFS);
+
+        // 读取对应的DOM元素,spans的元素要随着（添加、删除）更新
+        // var spans = [].slice.call(document.getElementsByTagName("span"), 0);
+        // 记录状态的数组
+        var state = [];
+        // 定义一个时间，作为查找遍历后，才出现查找结果的定时器
+        var time = 0;
+        // 遍历一个节点所花费的时间
+        const TIME_IN_A_NODE = 500;
+
+        // 检测用户的输入值
+        function isLegal(value) {
+            if (value === '' || value === null) {
+                alert('不能为空');
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        /**
+         * initSyle 重置所有节点的样式
+         */
+        function initStyle() {
+            divs.forEach(function (element, index) {
+                element.style.background = 'white';
+            });
+        }
+
+        // 渲染DOM函数
+        function render() {
+            // 读取对应的DOM元素
+            var spans = [].slice.call(document.getElementsByTagName("span"), 0);
+            // console.log(spans);
+            var s = [];
+            // 删除数组第一个元素并返回该元素
+            s = state.shift();
+            // 加上s !== undefined 目的是当遍历完最后一个节点的时候应该把元素的背景恢复为白色
+            // 遍历最后一个节点时再调用多一次draw函数此时 s = []，调用完这一次后继续s = state.shift() 此时s = undefined
+            if (state.length || s !== undefined) {
+                console.log(s);
+                setTimeout(render, TIME_IN_A_NODE);
+            }
+
+            // TODO 以下做法，遍历的时候，相同节点的值，会同时出现被遍历状态（同一颜色）
+
+            spans.forEach(function (element, index) {
+                if (element.innerText === s) {
+                    // 如果出现多个相同的值,则只会标识当前被遍历的那个
+                    element.parentNode.style.background = 'aquamarine';
+                }
+                else {
+                    element.parentNode.style.background = 'white';
+                }
+            });
+
+            return state;
+        }
+
+        // 取得深度遍历与广度遍历按钮
+        var dfsBtn = document.querySelector('#dfs-btn');
+        var bfsBtn = document.querySelector('#bfs-btn');
+
+        // 绑定事件监听
+        dfsBtn.addEventListener('click', traversalDFS, false);
+        bfsBtn.addEventListener('click', traversalBFS, false);
+
+        // 深度遍历优先接口
+        function traversalDFS() {
+            if (!state.length) {
+                console.clear();
+                tree.traverseDFS(function (node) {
+                    state.push(node.data);
+                });
+                render();
+            }
+        }
+
+        // 广度遍历优先接口
+        function traversalBFS() {
+            if (!state.length) {
+                console.clear();
+                tree.traverseBFS(function (node) {
+                    state.push(node.data);
+                });
+                render();
+            }
+        }
+
+        // 读取用户输入框和查询按钮
+        var searchInput = document.querySelector("#search-input");
+        var searchBtn = document.querySelector("#search-btn");
+        var output = document.querySelector("#output");
+
+        // var str = userInput.value;
+
+        searchBtn.addEventListener('click', search, false);
+
+        // 查找函数
+        function search() {
+            // 数组为空，表明上一次查找动画已经完毕，可以开始当前的查找
+            if (!state.length && isLegal(searchInput.value)) {
+                // 重置time为0
+                time = 0;
+                console.clear();
+                // 去除前后置空格
+                var trimmedStr = searchInput.value.trim();
+                var re = new RegExp(trimmedStr, 'g');
+                var searchNode = null;
+
+                var callback = function (node) {
+                    if (re.test(node.data)) {
+                        // console.log(node.data);
+                        searchNode = node;
+                    }
+                    state.push(node.data);
+                };
+
+                tree.contains(callback, tree.traverseBFS);
+
+                // 对查找到的节点的处理
+                if (searchNode) {
+                    // 获得查找到节点在数组中的索引,找不到返回-1
+                    var endPos = state.indexOf(searchNode.data);
+                    // 截取从0到查找节点组成的数组，故endPos需要加1
+                    state = state.slice(0, endPos + 1);
+                    // console.log(state);
+                    // 更新时间 加2为了在超时调完之后，才显示完结果
+                    time = (endPos + 2) * TIME_IN_A_NODE;
+
+                    render();
+                    // 当查找完成后才显示该信息
+                    setTimeout(function () {
+                        output.innerHTML = '找到了' + searchInput.value;
+                        // 标识当前节点
+                        spans.forEach(function (element, index) {
+                            if (element.innerHTML === searchNode.data) {
+                                element.parentNode.style.background = "yellow";
+                            }
+                        });
+                    }, time);
+                }
+                else {
+                    time = state.length * TIME_IN_A_NODE;
+                    render();
+                    // 当查找完成后才显示该信息
+                    setTimeout(function () {
+                        output.innerHTML = '抱歉，找不到' + searchInput.value;
+                    }, time);
+                }
+
+            }
+
+        }
+
+        // 实现选中、删除、添加功能
+        var addInput = document.querySelector('#add-input');
+        var addBtn = document.querySelector('#add-btn');
+        var delBtn = document.querySelector('#del-btn');
+        var divs = [].slice.call(document.querySelectorAll('.box'), 0);
+
+        // var flag = false;
+        // 当前选中的节点
+        var curSelectNode = null;
+
+        // 绑定事件监听
+        divs.forEach(function (element, index) {
+            divs[index].addEventListener('click', selectedNode, false);
+        });
+
+        // divs.addEventListener('click', selectNode, false);
+        addBtn.addEventListener('click', addNode, false);
+        delBtn.addEventListener('click', delNode, false);
+
+
+        // 选中节点
+        function selectedNode(event) {
+            // 重置所有节点样式
+            initStyle();
+
+            // 如果点击的目标对象为span元素，则设置它的父节点样式
+            if (event.target.tagName.toLowerCase() === 'span') {
+                event.target.parentNode.style.background = 'aquamarine';
+                curSelectNode = event.target.parentNode;
+            }
+            else {
+                event.target.style.background = 'aquamarine';
+                curSelectNode = event.target;
+            }
+
+            // 停止事件在DOM层次中的传播，取消进一步的事件捕获或冒泡。
+            event.stopPropagation();
+            // 如果注释event.stopPropagation，则会根据元素在DOM的层次输出相应的次数,则会影响
+            // console.log(filter(curSelectNode).innerHTML);
+            // console.log(filter(curSelectNode.parentNode).innerHTML);
+        }
+
+        // 从一个父节点中过滤出span元素，需要考虑元素类型，curSelectNode的孩子节点类型那个
+        var filter = function (node) {
+            for (var i = 0, len = node.childNodes.length; i < len; i++) {
+                // 第一层if过滤出元素节点
+                if (node.childNodes[i].nodeType === 1) {
+                    // 第二层过滤出span元素
+                    if (node.childNodes[i].tagName.toLowerCase() === 'span') {
+                        return node.childNodes[i];
+                    }
+                    // 如果不存在span，表明此时要过滤的节点不在于树中，则直接返回第一个节点
+                    else {
+                        return node.childNodes[0];
+                    }
+                }
+            }
+        };
+
+        // 添加用户输入的节点
+        function addNode() {
+            // console.log(addInput.value);
+            if (!curSelectNode) {
+                alert('请选中要插入的位置');
+            }
+            else {
+                if (isLegal(addInput.value)) {
+                    var div = document.createElement('div');
+                    var span = document.createElement('span');
+
+                    span.innerHTML = addInput.value;
+                    div.appendChild(span);
+                    div.setAttribute('class', 'box');
+                    curSelectNode.appendChild(div);
+
+                    // 绑定监听事件
+                    div.addEventListener('click', selectedNode, false);
+                    // 添加到divs里,更新获取到的divs元素列表
+                    divs.push(div);
+
+                    // 添加到树中，该语句必须放在DOM元素添加之后，否则会出错
+                    tree.add(span.innerText, filter(curSelectNode).innerText, tree.traverseDFS);
+
+                    // 处理父节点不存在的时候，为什么匹配不了，传入的方式有错？
+                    // 原因是传入参数有误，最后一个写出traversalBFS，此为深度遍历的接口，而不是具体的方式
+                    // tree.add(div.innerHTML, filter(curSelectNode).innerText, traversalBFS); 更改命名
+
+                    // 只有当前节点为span元素时，才能读取到它的curSelectNode的data值，添加到树中，如果操作？
+                    // 在选中的时候，curSelectNode均为div,需要把div的子节点span过滤出来
+                }
+            }
+        }
+
+        // 删除用户选中节点
+        function delNode() {
+            // 如果当前节点为空
+            if (!curSelectNode) {
+                alert('请选择要删除的节点');
+            }
+            else {
+                // 获得当前选中的节点
+                if (confirm('是否删除当前节点？')) {
+                    // 从树中移除
+                    tree.remove(filter(curSelectNode).innerText, filter(curSelectNode.parentNode).innerText, tree.traverseDFS);
+                    // 从DOM元素中删除，该语句必须放在tree.remove之后，否则将会抛出出错（对应的DOM节点被删）
+                    curSelectNode.remove();
+                    // 从divs中移除
+                    // console.log(divs);
+                    // 重新获取divs数组元素
+                    divs = [].slice.call(document.querySelectorAll('.box'), 0);
+                    // console.log(divs);
+                    // divs.slice(curSelectNode, 1);
+                    // 处理删除顶点时，父亲不存在树节点的情况，直接把该节点删除，还有filter函数的情况特殊处理
+                    // 当选中的是myComputer顶点时，它的父节点不存在span，就会出错,这是直接返回一个不为空的节点
+                }
+            }
+        }
+    }
+
+
+    init();
+</script>
+</body>
+</html>
