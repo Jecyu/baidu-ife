@@ -66,7 +66,10 @@
     // • 增加一个删除按钮，当选中某个节点元素后，点击删除按钮，则将该节点及其所有子节点删除掉
     // • 增加一个输入框及一个“添加”按钮当选中某个节点元素后，点击增加按钮，则在该节点下增加一个子节点，节点内容为输入框中内容，插入在其子节点的最后一个位置
 
-    // 解题思路：（要注意获取DOM元素的状态随添加、删除节点的变化）
+    // 解题思路：
+    // （要注意获取DOM元素的状态随添加、删除节点的变化,解决：1.可以随时获取最新的DOM元素列表（建议） 2.在添加或删除
+    // 的时候更新它们的DOM元素列表）
+
     // 1.实现点击选中功能，获取对应的DOM元素，绑定事件监听，使用this对象或event.target来设置样式
     // 2.在选中的基础上，
     // 2.1 实现删除功能，删除DOM元素removeChild() 或remove()，同时把节点从树中删除remove(data, fromData, traversal)
@@ -246,7 +249,22 @@
     }
 
     function init() {
+//        var root = document.querySelector('#myComputer');
+        var tree = new Tree('myComputer');
+        // TODO 实时读取DOM元素，建立树
+//        function order(r) {
+//            var t = r.childNodes;
+//            var child = [];
+//            for (var i = 0, len = t.length; i < len; i++) {
+//                order(t[i]);
+//                if (t[i].nodeType === 1 && t[i].tagName.toLowerCase() === 'span') {
+//                    console.log(t[i]);
+//                    console.log(i);
+//                    // tree.add(t[i].innerText, t[i].innerText, tree.traverseBFS);
+//                }
+//            }
 
+//        }
         var tree = new Tree('myComputer');
         tree.add('C:', 'myComputer', tree.traverseDFS);
         tree.add('D:', 'myComputer', tree.traverseDFS);
@@ -276,14 +294,15 @@
 
         tree.add('node.exe', 'nodeJs', tree.traverseDFS);
 
-        // 读取对应的DOM元素,spans的元素要随着（添加、删除）更新
-        // var spans = [].slice.call(document.getElementsByTagName("span"), 0);
+
         // 记录状态的数组
         var state = [];
         // 定义一个时间，作为查找遍历后，才出现查找结果的定时器
         var time = 0;
         // 遍历一个节点所花费的时间
         const TIME_IN_A_NODE = 500;
+        // 计时器
+        var timer = null;
 
         // 检测用户的输入值
         function isLegal(value) {
@@ -296,43 +315,63 @@
             }
         }
 
-        /**
-         * initSyle 重置所有节点的样式
-         */
-        function initStyle() {
-            divs.forEach(function (element, index) {
+        // 重置颜色
+        function resetColor() {
+            // 随时获取最新的div.box元素
+            [].slice.call(document.querySelectorAll('.box'), 0).forEach(function (element, index) {
                 element.style.background = 'white';
             });
         }
 
-        // 渲染DOM函数
-        function render() {
-            // 读取对应的DOM元素
-            var spans = [].slice.call(document.getElementsByTagName("span"), 0);
-            // console.log(spans);
-            var s = [];
-            // 删除数组第一个元素并返回该元素
-            s = state.shift();
-            // 加上s !== undefined 目的是当遍历完最后一个节点的时候应该把元素的背景恢复为白色
-            // 遍历最后一个节点时再调用多一次draw函数此时 s = []，调用完这一次后继续s = state.shift() 此时s = undefined
-            if (state.length || s !== undefined) {
-                console.log(s);
-                setTimeout(render, TIME_IN_A_NODE);
-            }
-
-            // TODO 以下做法，遍历的时候，相同节点的值，会同时出现被遍历状态（同一颜色）
-
-            spans.forEach(function (element, index) {
-                if (element.innerText === s) {
-                    // 如果出现多个相同的值,则只会标识当前被遍历的那个
-                    element.parentNode.style.background = 'aquamarine';
+        // 改变颜色
+        function changeColor(arr) {
+            var i = 0;
+            timer = setInterval(function () {
+                if (i <= arr.length) {
+                    if (i < arr.length) {
+                        arr[i].style.background = "aquamarine";
+                        console.log(state[i]);
+                    }
+                    if (i > 0) {
+                        arr[i - 1].style.background = '#fff';
+                    }
                 }
                 else {
-                    element.parentNode.style.background = 'white';
+                    clearInterval(timer);
+                    // 重置state为空
+                    state.length = 0;
                 }
-            });
+                i++;
+            }, TIME_IN_A_NODE);
+        }
 
-            return state;
+        // 渲染DOM函数
+        function render() {
+
+            // 读取对应的DOM元素
+            // var spans = [].slice.call(document.getElementsByTagName("span"), 0);
+            var divs = [].slice.call(document.querySelectorAll(".box"), 0);
+            // ss是divs数组与state映射起来的结果，让ss里的元素与state排列一致
+            var ss = [];
+
+            for (var i = 0, len = state.length; i < len; i++) {
+                for (var j = 0; j < divs.length; j++) {
+                    // 对比的是过滤出来的spans
+                    // 当state出现多个相同的值时，ss[i]总是记录的是最后一个满足条件的值，这样就可以ss出现多个相同的div元素
+                    // 因此需要splice和break
+                    if (filter(divs[j]).innerText === state[i]) {
+                        ss[i] = divs[j];
+                        // 把得到的值从divs数组中删除，避免重复获取
+                        divs.splice(j, 1);
+                        // 跳出该循环
+                        break;
+                        // spans.innerHTML = state[i]; 这样做会改变DOM元素的顺序呢
+                    }
+                }
+            }
+            console.log(ss);
+            // state.length = 0;
+            changeColor(ss);
         }
 
         // 取得深度遍历与广度遍历按钮
@@ -370,13 +409,13 @@
         var searchBtn = document.querySelector("#search-btn");
         var output = document.querySelector("#output");
 
-        // var str = userInput.value;
-
         searchBtn.addEventListener('click', search, false);
 
         // 查找函数
         function search() {
             // 数组为空，表明上一次查找动画已经完毕，可以开始当前的查找
+            resetColor();
+            output.innerHTML = '请输入查找的值后，点击查询按钮';
             if (!state.length && isLegal(searchInput.value)) {
                 // 重置time为0
                 time = 0;
@@ -410,8 +449,8 @@
                     // 当查找完成后才显示该信息
                     setTimeout(function () {
                         output.innerHTML = '找到了' + searchInput.value;
-                        // 标识当前节点
-                        spans.forEach(function (element, index) {
+                        // 标识当前节点,随时获取最新的span元素数组
+                        [].slice.call(document.getElementsByTagName("span"), 0).forEach(function (element) {
                             if (element.innerHTML === searchNode.data) {
                                 element.parentNode.style.background = "yellow";
                             }
@@ -435,26 +474,28 @@
         var addInput = document.querySelector('#add-input');
         var addBtn = document.querySelector('#add-btn');
         var delBtn = document.querySelector('#del-btn');
-        var divs = [].slice.call(document.querySelectorAll('.box'), 0);
 
-        // var flag = false;
-        // 当前选中的节点
-        var curSelectNode = null;
 
-        // 绑定事件监听
-        divs.forEach(function (element, index) {
-            divs[index].addEventListener('click', selectedNode, false);
-        });
-
-        // divs.addEventListener('click', selectNode, false);
         addBtn.addEventListener('click', addNode, false);
         delBtn.addEventListener('click', delNode, false);
 
+        // 绑定事件监听
+        // var divs = [].slice.call(document.querySelectorAll('.box'), 0);
+        // divs.forEach(function (element, index) {
+        //    divs[index].addEventListener('click', selectedNode, false);
+        // });
+        // });
 
+        // 事件委托,可以不用为每个div都绑定监听，且在后期移除或添加DOM元素时也不用额外移除或添加事件处理程序
+        var superBox = document.querySelector('#myComputer');
+        superBox.addEventListener('click', selectedNode, false);
+
+        // 当前选中的节点
+        var curSelectNode = null;
         // 选中节点
         function selectedNode(event) {
             // 重置所有节点样式
-            initStyle();
+            resetColor();
 
             // 如果点击的目标对象为span元素，则设置它的父节点样式
             if (event.target.tagName.toLowerCase() === 'span') {
@@ -466,9 +507,12 @@
                 curSelectNode = event.target;
             }
 
-            // 停止事件在DOM层次中的传播，取消进一步的事件捕获或冒泡。
-            event.stopPropagation();
-            // 如果注释event.stopPropagation，则会根据元素在DOM的层次输出相应的次数,则会影响
+            // 如果不使用事件委托的情况下，则需要为每个div绑定事件监听
+            // 停止事件在DOM层次中的传播，取消进一步的事件冒泡或捕获。
+            event.stopPropagation() ? event.stopPropagation() : event.cancelBubble = true;
+
+            // console.log(event.currentTarget);
+            // 如果注释event.stopPropagation，则会根据元素在DOM的层次输出相应的次数（触发其他相同注册事件执行）
             // console.log(filter(curSelectNode).innerHTML);
             // console.log(filter(curSelectNode.parentNode).innerHTML);
         }
@@ -507,9 +551,9 @@
                     curSelectNode.appendChild(div);
 
                     // 绑定监听事件
-                    div.addEventListener('click', selectedNode, false);
+                    // div.addEventListener('click', selectedNode, false);
                     // 添加到divs里,更新获取到的divs元素列表
-                    divs.push(div);
+                    // divs.push(div);
 
                     // 添加到树中，该语句必须放在DOM元素添加之后，否则会出错
                     tree.add(span.innerText, filter(curSelectNode).innerText, tree.traverseDFS);
@@ -537,20 +581,15 @@
                     tree.remove(filter(curSelectNode).innerText, filter(curSelectNode.parentNode).innerText, tree.traverseDFS);
                     // 从DOM元素中删除，该语句必须放在tree.remove之后，否则将会抛出出错（对应的DOM节点被删）
                     curSelectNode.remove();
-                    // 从divs中移除
-                    // console.log(divs);
                     // 重新获取divs数组元素
-                    divs = [].slice.call(document.querySelectorAll('.box'), 0);
-                    // console.log(divs);
+                    // divs = [].slice.call(document.querySelectorAll('.box'), 0);
                     // divs.slice(curSelectNode, 1);
                     // 处理删除顶点时，父亲不存在树节点的情况，直接把该节点删除，还有filter函数的情况特殊处理
-                    // 当选中的是myComputer顶点时，它的父节点不存在span，就会出错,这是直接返回一个不为空的节点
+                    // 当选中的是myComputer顶点时，它的父节点不存在span，就会出错,直接返回一个不为空的节点
                 }
             }
         }
     }
-
-
     init();
 </script>
 </body>
