@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>任务一：表单（一）单个表单项的检验</title>
+    <style type="text/css">
+        form {
+            /* just center the form on the page */
+            width: 500px;
+            height: 100px;
+            margin: 0 auto;
+            /* To see the outline of the form */
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 1em;
+        }
+
+        form div {
+            position: relative;
+        }
+
+        label {
+            /* To make all the label have the same size and are properly aligned */
+            display: inline-block;
+            width: 40px;
+            padding-right: 2em;
+
+            text-align: right;
+        }   
+        
+        input {
+            -webkit-appearance: none;
+
+            width: 340px;
+            height: 3em;
+            padding: .2em;
+            box-sizing: border-box;
+            border: 1px solid #999;
+            border-radius: .5em;
+        }
+
+        input:focus {   
+            /* To give a little highlight on active elements */
+            border-color: #000;
+            outline: 0;
+        }
+
+        input.valid {
+            border-color: #1eb95f;
+        }
+
+        input.invalid {
+            border-color: #e42e2e;
+        }
+
+        .button {
+            position: relative;
+        }
+      
+        button {
+            position: absolute;
+            top: -3em;
+            right: 1em;
+                
+            width: 4em;
+            height: 3em;
+            border: 0;
+            border-radius: .5em;
+
+            color: #fff;
+            background: rgb(72, 130, 218);
+        }
+
+        .feedback {
+            position: absolute;
+            top: 3em;
+            left: 5em;
+
+            /* color: #999; */
+            font-style: normal;
+        }
+
+        .init {
+            color: #999;
+        }
+        .error {
+            color: #e42e2e;        
+        }
+
+        .success {
+            color: #1eb95f;
+        }
+        
+    </style>
+</head>
+<body>
+    <form action="" novalidate>
+        <div>    
+            <label for="name">
+                <strong>名称</strong>
+                <em class="feedback init">必填，长度为4~16个字符</em>
+            </label>
+            <input id="name" type="text" name="user_name" required>
+        </div>
+        <div class="button">
+            <button type="submit" id="validate-btn"><strong>验证</strong></button>
+        </div>
+    </form>
+    <script type="text/javascript">
+        // 在页面中实现一个输入框与按钮，
+        // 要求点击验证按钮后，对输入框中内容进行格式校验，并在其下方显示校验结果
+        // 校验规则：
+        // 1.字符数为4~16位
+        // 2.每个英文字母、数字、英文符号长度为1
+        // 3.每个汉字，中文符号长度为2
+        // 解题思路：
+        // 1.页面加载时，初始样式
+        // 2.分别声明error、success和init样式
+        // 3.使用正则表达式把中文转为英文字符后，再计算字符串长度
+    
+
+        var userName = document.getElementById('name');
+        var form = document.getElementsByTagName('form')[0];
+        var feedback = document.querySelector('.feedback');
+        
+        // 判断用户输入的字符长度是否满足要求
+        var isValidLength = function(str, len1, len2) {
+            // 把字符串中的一个汉字转为两个英文字符
+            var str = str.replace(/[\u4000-\u9fa5]/g,'aa');
+            if ( len1 <= str.length && str.length <= len2) {
+                return true;
+            }
+            return false;
+        };
+
+        form.addEventListener('submit', function(event) {
+            if (userName.value.length === 0) {
+                feedback.innerHTML = '姓名不能为空';
+                feedback.className = 'feedback error';
+                userName.className = 'invalid';
+                userName.focus();
+                event.preventDefault();
+            }
+            else if (isValidLength(userName.value, 4, 16)) {
+                feedback.innerHTML = '名称格式正确';
+                feedback.className = 'feedback success';
+                userName.className = 'valid';
+                event.preventDefault();
+            }
+            else {
+                feedback.innerHTML = '输入长度要求为4~16个字符哦！';
+                feedback.className = 'feedback init';
+                userName.focus();
+                event.preventDefault();
+            }
+        }, false);
+    </script>
+</body>
+</html>
