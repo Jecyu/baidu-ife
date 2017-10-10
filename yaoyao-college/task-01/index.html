@@ -128,8 +128,10 @@
         
         // 判断用户输入的字符长度是否满足要求
         var isValidLength = function(str, len1, len2) {
-            // 把字符串中的一个汉字转为两个英文字符
-            var str = str.replace(/[\u4000-\u9fa5]/g,'aa');
+            // 把32bit编码的中文字符的一个汉字转为两个英文字符
+            str = str.replace(/[xd800-xffff]/g, 'a');
+            // 把16bit字符串中的一个汉字转为两个英文字符
+            str = str.replace(/[\u4000-\u9fa5]/g,'aa');
             if ( len1 <= str.length && str.length <= len2) {
                 return true;
             }
