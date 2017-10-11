@@ -1,0 +1,337 @@
+<!--
+@Author: jeCyu
+@Date: 2017-10-10 5:44:49 pm 
+@Modified By: jeCyu 
+@Last Modified time: 2017-10-11 5:00:30 pm 
+-->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>任务二：表单（一）单个表单项的检验</title>
+    <style type="text/css">
+        form * {
+            box-sizing: border-box;
+        }
+        form {
+            /* just center the form on the page */
+            width: 500px;
+            /* height: 100px; */
+            margin: 0 auto;
+            /* To see the outline of the form */
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 1em;
+        }
+
+        form div {
+            position: relative;
+            margin-top: 1em;
+        }
+
+        label {
+            display: block;
+            padding-right: 2em;
+
+            /* text-align: right; */
+        } 
+
+        .label {
+            /* To make all the label have the same size and are properly aligned */
+            display: inline-block;
+            width: 100px;
+            padding-right: 10px;
+
+            text-align: right;
+        } 
+        
+        input {
+            -webkit-appearance: none;
+
+            width: 350px;
+            height: 3em;
+            padding: .2em;
+            box-sizing: border-box;
+            border: 1px solid #999;
+            border-radius: .5em;
+
+            vertical-align: top;
+        }
+
+        input:focus {   
+            /* To give a little highlight on active elements */
+            border-color: #aeebf3;
+            outline: 0;
+        }
+
+        input.valid {
+            border-color: #1eb95f;
+        }
+
+        input.invalid {
+            border-color: #e42e2e;
+        }
+
+        .button {
+            position: relative;
+            padding-right: 3em;
+
+            text-align: right;
+        }
+      
+        button {               
+            width: 5em;
+            height: 3em;
+            border: 0;
+            border-radius: .5em;
+
+            color: #fff;
+            background: rgb(72, 130, 218);
+        }
+
+        .feedback {
+            display: none;
+            width: 300px;
+            margin-left: 110px;
+
+            text-align: left;
+            font-style: normal;
+            color: #999;
+        }
+        
+        .display.feedback {
+            display: block;
+        }
+
+        .init {
+            color: #999;
+        }
+        .error {
+            color: #e42e2e;        
+        }
+
+        .success {
+            color: #1eb95f;
+        }
+        
+    </style>
+</head>
+<body>
+    <form action="" novalidate>
+        <div>    
+            <label for="name">
+                <strong class="label">名称</strong>
+                <input id="name" type="text" name="user_name" required>
+                <span class="feedback">必填，长度为4~16个字符</span>      
+            </label>    
+        </div>
+        <div>    
+            <label for="pwd">
+                <strong class="label">密码</strong>
+                <input id="pwd" type="password" name="password" required>
+                <span class="feedback">请输入您的密码</span>
+            </label>
+        </div>
+        <div>    
+            <label for="confirm-pwd">
+                <strong class="label">确认密码</strong>
+                <input id="confirm-pwd" type="password" name="comfirm_password" required>
+                <span class="feedback">请确认您输入的密码</span>
+            </label>
+        </div>
+        <div>    
+            <label for="email">
+                <strong class="label">邮箱</strong>
+                <input id="email" type="text" name="email" required>
+                <span class="feedback">请输入您邮箱地址</span>
+            </label>
+        </div>
+        <div>    
+            <label for="phone">
+                <strong class="label">手机</strong>
+                <input id="phone" type="text" name="phone_number" required>
+                <span class="feedback">请输入11位数字的手机号</span>
+            </label>
+        </div>
+        <div class="button">
+            <button type="submit" id="submit-btn"><strong>提交</strong></button>
+        </div>
+    </form>
+    <script type="text/javascript">
+        // 	• 要求:
+		// ○ 表单获得焦点时，下方显示表单填写规则
+		// ○ 表单失去焦点时校验表单内容
+		// ○ 校验结果正确时，表单边框显示绿色，并在下方显示验证通过的描述文字
+		// ○ 校验结果错误时，表单边框显示红色，并在下方显示验证错误的描述文字
+		// ○ 点击提交按钮时，对页面中所有输入进行校验，校验结果显示方式同上。若所有表单校验通过，弹窗显示“提交成功”，否则显示“提交失败”
+
+        // 解题思路：
+        // 1.利用表单焦点事件
+        // 2.封装一个表单验证对象，包括提示信息、以及根据不同类型的字段验证
+        // 3.最后submit表单时，检查所有字段是否都为true，为true则提交成功
+        
+        // 判断用户输入的字符长度是否满足特定要求
+        var isValidLength = function(str, len1, len2) {
+            // 把32bit编码的中文字符的一个汉字转为两个英文字符
+            str = str.replace(/[xd800-xffff]/g, 'a');
+            // 把16bit字符串中的一个汉字转为两个英文字符
+            str = str.replace(/[\u4000-\u9fa5]/g,'aa');
+            if ( len1 <= str.length && str.length <= len2) {
+                return true;
+            }
+            return false;
+        };
+
+        // 验证表单字段
+        var formValidation = {
+            errorTips: function(type) {
+                let strTips;
+                switch(type) {
+                  
+                    // 用户名
+                    case 'name': 
+                        strTips = '用户名长度为4~16个字符';
+                        return strTips; 
+                    // 密码验证
+                    case 'pwd':
+                        strTips = '密码长度为8~16个字符';
+                        return strTips;
+                    // 确认密码是否一致
+                    case 'confirm-pwd': 
+                        strTips = '密码不一致';
+                        return strTips;
+                    // 手机号验证
+                    case 'phone': 
+                        strTips = '请输入11位数字的手机号';
+                        return strTips;
+                    // 邮箱验证
+                    case 'email': 
+                        strTips = '邮箱格式不正确';
+                        return strTips;
+                }
+            },
+            successTips: function(type) {
+                let strTips;
+                switch(type) {
+                    // 用户名
+                    case 'name': 
+                        strTips = '用户名可用';
+                        return strTips; 
+                    // 密码验证
+                    case 'pwd':
+                        strTips = '密码可用';
+                        return strTips;
+                    // 确认密码是否一致
+                    case 'confirm-pwd': 
+                        strTips = '密码输入一致';
+                        return strTips;
+                    // 手机号验证
+                    case 'phone': 
+                        strTips = '手机格式正确';
+                        return strTips;
+                    // 邮箱验证
+                    case 'email': 
+                        strTips = '邮箱格式正确';
+                        return strTips;
+                } 
+        
+            },
+            // 字段验证，支持非空、手机号、邮箱的验证
+            validate: function(value, type) {
+  
+                switch(type) {
+                    // 非空验证
+                    // case require: return !!value;
+                    // 用户名验证
+                    case 'name': return isValidLength(value, 4, 16);
+                    // 密码验证
+                    case 'pwd': return isValidLength(value, 8, 16); 
+                    // 确认密码是否一致
+                    case 'confirm-pwd': 
+                        var password = document.getElementById('pwd').value;
+                        return value == password ? true : false;
+                    // 手机号验证
+                    case 'phone': return /^1\d{10}$/.test(value);
+                    
+                    // 邮箱验证
+                    case 'email': return /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test(value);  
+                }              
+            } 
+        }
+
+        var form = document.getElementsByTagName('form')[0];
+        
+
+        // 表单字段获得焦点，显示提示信息
+        // 处理点击提交按钮时的错误,提交按钮没有下一个兄弟元素
+        // event.target.nextElementSibling.className = 'display feedback';造成的错误
+        form.addEventListener('focusin', function(event) {
+            // 如果点击的是提交按钮，则不进行下一步
+            if (event.target !== document.getElementById('submit-btn')) {
+                event.target.nextElementSibling.className = 'display feedback';             
+            }
+        }, false);
+
+        // 表单字段失去焦点触发验证
+        form.addEventListener('focusout', function(event) {
+            if (event.target !== document.getElementById('submit-btn')) {
+                var label = event.target.previousElementSibling.innerHTML;
+                
+                // 若为空
+                if (event.target.value.length === 0) {    
+                    event.target.nextElementSibling.innerHTML = label + '不能为空';
+                    event.target.nextElementSibling.className = 'display feedback error';
+                    event.target.className = 'invalid'; 
+                    event.preventDefault();
+                }
+
+                // 特定字段的验证
+                else if (formValidation.validate(event.target.value, event.target.id)) {
+                    event.target.nextElementSibling.innerHTML = formValidation.successTips(event.target.id);
+                    event.target.nextElementSibling.className = 'display feedback success';
+                    event.target.className = 'valid';
+                    event.preventDefault();
+                }
+                
+                // 输入格式错误处理
+                else {
+                    event.target.nextElementSibling.innerHTML = formValidation.errorTips(event.target.id);
+                    event.target.nextElementSibling.className = 'display feedback error';
+                    event.preventDefault();
+                }
+            }
+        }, false);
+        
+        // 提交表单
+        form.addEventListener('submit', function(event) {
+            // 如果验证全部成功则提交
+            var inputs = [].slice.call(document.getElementsByTagName('input'));
+            var validate = function() {
+               for(var i = 0, len = inputs.length; i < len; i++) {
+                    // 只要存在一个字段验证错误，则返回false
+                    if (!formValidation.validate(inputs[i].value, inputs[i].id)) {
+                        return false; 
+                        break;       
+                    }                            
+               }
+               return true;  
+            }
+            
+            var test = validate();
+            console.log(test);
+            
+            if(test) {
+                alert('提交成功');
+            } 
+            else {
+                alert('输入有误')
+            }  
+            // 表单字段输入存在错误
+            event.preventDefault();
+        }, false);
+    </script>
+</body>
+</html>
