@@ -26,5 +26,5 @@
 
 ## Demo
 
-- [点我预览](http://htmlpreview.github.io/?https://github.com/Jecyu/ife-baidu-2017/blob/master/xiaowei-college/task-07/index.html)
+- [点我预览](https://jecyu.github.io/ife-baidu-2017/xiaowei-college/task-07/index.html)
 
